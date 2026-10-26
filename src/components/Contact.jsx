@@ -8,7 +8,6 @@ import {
   RiCheckLine,
   RiArrowRightUpLine
 } from 'react-icons/ri';
-import MatrixGridBackground from './MatrixGridBackground';
 import confetti from 'canvas-confetti';
 
 export default function Contact({ t }) {
@@ -41,9 +40,6 @@ export default function Contact({ t }) {
     <section className="section-padding" id="contacto">
       <div className="content-wrapper">
         <div className="contact-developer-section animate__animated animate__fadeIn">
-          {/* Cybernetic Code Matrix Grid Background */}
-          <MatrixGridBackground />
-
           <div className="contact-dev-grid">
             {/* Left Column: Heading, Punchline & Action Pills */}
             <div style={{ position: 'relative', zIndex: 4 }}>

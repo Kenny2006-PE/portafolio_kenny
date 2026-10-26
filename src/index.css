@@ -1392,30 +1392,18 @@ h1, h2, h3, h4, h5, h6 {
    Contact Section
    ========================================================================== */
 /* ==========================================================================
-   New Cyber / Developer Matrix Contact Section (matches user reference 2)
+   Clean Structured Developer Contact Section (Harmonized with Portfolio)
    ========================================================================== */
 .contact-developer-section {
   position: relative;
   background: var(--bg-card);
-  border-radius: 28px;
+  border-radius: 24px;
   border: 1px solid var(--border-color);
-  padding: 4rem 3.5rem 2.5rem 3.5rem;
+  padding: 3.5rem 3rem 2.5rem 3rem;
   box-shadow: var(--shadow-lg), var(--shadow-glow);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   overflow: hidden;
-}
-
-/* Faint background matrix grid with tech characters */
-.contact-developer-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(239, 68, 68, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(239, 68, 68, 0.07) 1px, transparent 1px);
-  background-size: 55px 55px;
-  pointer-events: none;
-  opacity: 0.7;
 }
 
 .contact-dev-grid {
@@ -1425,27 +1413,27 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   position: relative;
   z-index: 2;
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 
 @media (max-width: 960px) {
   .contact-developer-section {
-    padding: 2.5rem 1.75rem 2rem 1.75rem;
+    padding: 2.25rem 1.75rem 1.75rem 1.75rem;
   }
   .contact-dev-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.25rem;
   }
 }
 
 .contact-mono-tag {
   font-family: var(--font-mono);
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--accent-red);
   letter-spacing: 0.12em;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1rem;
   display: block;
 }
 
@@ -1485,7 +1473,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #e61919;
+  background: var(--accent-red);
   color: #ffffff;
   padding: 0.85rem 2rem;
   border-radius: 9999px;
@@ -1493,15 +1481,15 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.95rem;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(230, 25, 25, 0.4);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
   transition: all var(--transition-normal);
   text-decoration: none;
 }
 
 .btn-pill-red:hover {
-  background: #ff2a2a;
+  background: var(--accent-red-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(230, 25, 25, 0.6);
+  box-shadow: 0 8px 26px rgba(239, 68, 68, 0.6);
 }
 
 .btn-pill-outline {
@@ -1509,90 +1497,31 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-tertiary);
   color: var(--text-primary);
   padding: 0.85rem 1.85rem;
   border-radius: 9999px;
   font-weight: 600;
   font-size: 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: all var(--transition-normal);
 }
 
-[data-theme="light"] .btn-pill-outline {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.18);
-}
-
 .btn-pill-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card-hover);
   border-color: var(--accent-red);
+  color: var(--accent-red);
   transform: translateY(-2px);
-}
-
-/* Matrix Code Background Layer */
-.matrix-code-container {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.matrix-mesh-grid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-[data-theme="light"] .matrix-mesh-grid {
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-}
-
-.matrix-vertical-col {
-  position: absolute;
-  top: -20px;
-  bottom: -20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #7f1d1d;
-  user-select: none;
-  text-transform: uppercase;
-}
-
-.matrix-vertical-col.col-highlight {
-  color: #ef4444;
-}
-
-.matrix-char {
-  display: inline-block;
-  line-height: 1;
-  opacity: 0.65;
-}
-
-.matrix-char.char-bright {
-  opacity: 1;
-  color: #f87171;
-  text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
 }
 
 /* Right Stack Channels */
 .contact-channels-column {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.15rem;
   position: relative;
-  z-index: 5;
+  z-index: 2;
 }
 
 .contact-floating-mail-box {
@@ -1606,44 +1535,42 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ef4444;
-  box-shadow: 0 0 18px rgba(239, 68, 68, 0.4);
+  color: var(--accent-red);
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.35);
   animation: pulseGlow 3s infinite ease-in-out;
 }
 
-/* Exact Developer Card as seen in User Reference Zoom */
+/* Developer Channels Cards */
 .contact-channel-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 1.65rem;
-  border-radius: 22px;
-  background: #0c0e14;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1.15rem 1.6rem;
+  border-radius: 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
   text-decoration: none;
   gap: 1.25rem;
-  position: relative;
-  z-index: 5;
 }
 
 [data-theme="light"] .contact-channel-bar {
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .contact-channel-bar:hover {
   transform: translateY(-2px);
-  border-color: rgba(239, 68, 68, 0.85);
-  box-shadow: 0 0 25px rgba(239, 68, 68, 0.3), 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-color: var(--accent-red);
+  box-shadow: 0 0 22px rgba(239, 68, 68, 0.25), var(--shadow-md);
 }
 
 .channel-user-handle {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--text-primary);
   letter-spacing: -0.01em;
 }
@@ -1652,29 +1579,40 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.6rem 1.35rem;
+  padding: 0.55rem 1.3rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   color: var(--text-primary);
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
   font-weight: 700;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   white-space: nowrap;
 }
 
-[data-theme="light"] .channel-tag-pill {
-  background: #f8fafc;
-  border-color: rgba(0, 0, 0, 0.15);
-  color: #0f172a;
+.contact-channel-bar:hover .channel-tag-pill {
+  background: var(--accent-red);
+  color: #ffffff;
+  border-color: var(--accent-red);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.45);
 }
 
-.contact-channel-bar:hover .channel-tag-pill {
-  background: #ef4444;
-  color: #ffffff;
-  border-color: #ef4444;
-  box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+/* Bottom Monospace Meta Strip */
+.contact-footer-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.contact-footer-strip a:hover {
+  color: var(--accent-red);
 }
 
 /* Bottom Monospace Meta Strip */
