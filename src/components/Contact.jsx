@@ -8,6 +8,7 @@ import {
   RiCheckLine,
   RiArrowRightUpLine
 } from 'react-icons/ri';
+import MatrixGridBackground from './MatrixGridBackground';
 import confetti from 'canvas-confetti';
 
 export default function Contact({ t }) {
@@ -29,10 +30,10 @@ export default function Contact({ t }) {
 
   const getChannelIcon = (type) => {
     switch (type) {
-      case 'github': return <RiGithubFill size={18} />;
-      case 'linkedin': return <RiLinkedinBoxFill size={18} />;
-      case 'whatsapp': return <RiWhatsappLine size={18} />;
-      default: return <RiArrowRightUpLine size={18} />;
+      case 'github': return <RiGithubFill size={19} />;
+      case 'linkedin': return <RiLinkedinBoxFill size={19} />;
+      case 'whatsapp': return <RiWhatsappLine size={19} />;
+      default: return <RiArrowRightUpLine size={19} />;
     }
   };
 
@@ -40,9 +41,12 @@ export default function Contact({ t }) {
     <section className="section-padding" id="contacto">
       <div className="content-wrapper">
         <div className="contact-developer-section animate__animated animate__fadeIn">
+          {/* Cybernetic Code Matrix Grid Background */}
+          <MatrixGridBackground />
+
           <div className="contact-dev-grid">
             {/* Left Column: Heading, Punchline & Action Pills */}
-            <div>
+            <div style={{ position: 'relative', zIndex: 4 }}>
               <span className="contact-mono-tag">{t.contact.tag}</span>
               
               <h2 className="contact-main-heading">{t.contact.title}</h2>
@@ -72,12 +76,12 @@ export default function Contact({ t }) {
                   {copiedEmail ? (
                     <>
                       <RiCheckLine size={18} color="#10b981" />
-                      <span style={{ color: '#10b981' }}>{t.contact.copiedEmailText}</span>
+                      <span style={{ color: '#10b981', fontFamily: "'JetBrains Mono', monospace" }}>{t.contact.copiedEmailText}</span>
                     </>
                   ) : (
                     <>
                       <RiFileCopyLine size={18} />
-                      <span>{t.contact.copyEmailBtn}</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>{t.contact.copyEmailBtn}</span>
                     </>
                   )}
                 </button>
@@ -91,7 +95,7 @@ export default function Contact({ t }) {
                 <RiMailSendLine size={24} />
               </div>
 
-              {/* Stack of Channel Cards */}
+              {/* Stack of Developer Channel Cards with Monospace Typography */}
               {t.contact.channels.map((channel, idx) => (
                 <a
                   key={idx}
@@ -112,7 +116,7 @@ export default function Contact({ t }) {
           </div>
 
           {/* Bottom Monospace Meta Strip */}
-          <div className="contact-footer-strip">
+          <div className="contact-footer-strip" style={{ position: 'relative', zIndex: 4 }}>
             <a href={`mailto:${t.personal.email}`}>{t.personal.email}</a>
             <a href={`tel:${t.personal.phone}`}>{t.personal.phone}</a>
             <span>{t.personal.location}</span>
