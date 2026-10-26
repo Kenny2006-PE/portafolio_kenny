@@ -182,17 +182,47 @@ export const portfolioData = {
       ]
     },
     contact: {
-      tag: "05 // CONTACTO",
       title: "Contacto",
-      punchline: "La interfaz, el backend y la solución con IA.",
-      desc: "Web o móvil. Lo armo yo, y lo dejo listo y funcionando.",
-      writeEmailBtn: "Escribir correo",
-      copyEmailBtn: "Copiar email",
-      copiedEmailText: "¡Email copiado!",
+      subtitle: "Canales directos para comunicarte conmigo o revisar mis perfiles profesionales.",
+      terminalUser: "kenny@palacin",
+      terminalPath: "~/links",
+      terminalCmd: "cat contact_channels.json",
+      statusText: "DISPONIBLE PARA OPORTUNIDADES",
+      copyBtn: "Copiar",
+      copiedText: "¡Copiado!",
       channels: [
-        { user: "Kenny2006-PE", label: "GitHub", type: "github", url: "https://github.com/Kenny2006-PE" },
-        { user: "kenny-palacin", label: "LinkedIn", type: "linkedin", url: "https://www.linkedin.com/in/kenny-palacin/" },
-        { user: "+51 937 765 918", label: "WhatsApp", type: "whatsapp", url: "https://wa.me/51937765918?text=Hola%20Kenny,%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20proyecto" }
+        {
+          id: "github",
+          user: "Kenny2006-PE",
+          label: "GitHub",
+          type: "github",
+          url: "https://github.com/Kenny2006-PE",
+          actionText: "GitHub"
+        },
+        {
+          id: "linkedin",
+          user: "kenny-palacin",
+          label: "LinkedIn",
+          type: "linkedin",
+          url: "https://www.linkedin.com/in/kenny-palacin/",
+          actionText: "LinkedIn"
+        },
+        {
+          id: "email",
+          user: "kennypalacin130698@gmail.com",
+          label: "Email",
+          type: "email",
+          url: "mailto:kennypalacin130698@gmail.com",
+          actionText: "Escribir correo"
+        },
+        {
+          id: "whatsapp",
+          user: "+51 937 765 918",
+          label: "WhatsApp",
+          type: "whatsapp",
+          url: "https://wa.me/51937765918?text=Hola%20Kenny,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar",
+          actionText: "WhatsApp"
+        }
       ]
     },
     cvModal: {
@@ -386,17 +416,47 @@ export const portfolioData = {
       ]
     },
     contact: {
-      tag: "05 // CONTACT",
       title: "Contact",
-      punchline: "The UI, the backend, and AI integration.",
-      desc: "Web or mobile. I build it end-to-end, and leave it running in production.",
-      writeEmailBtn: "Write email",
-      copyEmailBtn: "Copy email",
-      copiedEmailText: "Email copied!",
+      subtitle: "Direct channels to get in touch with me or explore my professional profiles.",
+      terminalUser: "kenny@palacin",
+      terminalPath: "~/links",
+      terminalCmd: "cat contact_channels.json",
+      statusText: "AVAILABLE FOR OPPORTUNITIES",
+      copyBtn: "Copy",
+      copiedText: "Copied!",
       channels: [
-        { user: "Kenny2006-PE", label: "GitHub", type: "github", url: "https://github.com/Kenny2006-PE" },
-        { user: "kenny-palacin", label: "LinkedIn", type: "linkedin", url: "https://www.linkedin.com/in/kenny-palacin/" },
-        { user: "+51 937 765 918", label: "WhatsApp", type: "whatsapp", url: "https://wa.me/51937765918?text=Hello%20Kenny,%20I%20would%20like%20to%20connect%20regarding%20a%20project" }
+        {
+          id: "github",
+          user: "Kenny2006-PE",
+          label: "GitHub",
+          type: "github",
+          url: "https://github.com/Kenny2006-PE",
+          actionText: "GitHub"
+        },
+        {
+          id: "linkedin",
+          user: "kenny-palacin",
+          label: "LinkedIn",
+          type: "linkedin",
+          url: "https://www.linkedin.com/in/kenny-palacin/",
+          actionText: "LinkedIn"
+        },
+        {
+          id: "email",
+          user: "kennypalacin130698@gmail.com",
+          label: "Email",
+          type: "email",
+          url: "mailto:kennypalacin130698@gmail.com",
+          actionText: "Write Email"
+        },
+        {
+          id: "whatsapp",
+          user: "+51 937 765 918",
+          label: "WhatsApp",
+          type: "whatsapp",
+          url: "https://wa.me/51937765918?text=Hello%20Kenny,%20I%20would%20like%20to%20connect",
+          actionText: "WhatsApp"
+        }
       ]
     },
     cvModal: {
