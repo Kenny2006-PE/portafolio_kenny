@@ -1668,69 +1668,113 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Responsive adjustment for small screens */
 @media (max-width: 680px) {
-  .cmd-channel-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.85rem;
+  .contact-terminal-card {
+    border-radius: 16px;
   }
-  .cmd-row-actions {
-    width: 100%;
-    justify-content: flex-end;
+
+  .terminal-card-header {
+    padding: 0.75rem 1rem;
   }
+
   .terminal-window-title {
     display: none;
   }
+
+  .terminal-status-badge {
+    font-size: 0.68rem;
+  }
+
+  .terminal-card-body {
+    padding: 1.25rem 0.95rem;
+  }
+
+  .terminal-prompt-row {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.65rem;
+    margin-bottom: 1.25rem;
+    word-break: break-all;
+  }
+
+  .cmd-channels-stack {
+    gap: 0.85rem;
+  }
+
+  .cmd-channel-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    padding: 0.95rem 1rem;
+    border-radius: 14px;
+  }
+
+  .cmd-user-handle {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .cmd-handle-text {
+    font-size: 0.92rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: calc(100% - 24px);
+  }
+
+  .cmd-row-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .cmd-pill-btn {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.95rem;
+    min-height: 38px;
+  }
+
+  .cmd-terminal-footer-strip {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+
+  .footer-strip-separator {
+    display: none;
+  }
+
+  .footer-strip-item {
+    justify-content: center;
+    width: 100%;
+    word-break: break-all;
+  }
 }
 
-/* Terminal Bottom Monospace Strip */
-.cmd-terminal-footer-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2.2rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-family: var(--font-mono);
-  font-size: 0.88rem;
-  color: var(--text-muted);
-}
+@media (max-width: 420px) {
+  .cmd-channel-row {
+    padding: 0.85rem 0.85rem;
+  }
 
-[data-theme="light"] .cmd-terminal-footer-strip {
-  border-top-color: rgba(0, 0, 0, 0.08);
-  color: var(--text-secondary);
-}
+  .cmd-handle-text {
+    font-size: 0.84rem;
+  }
 
-.footer-strip-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: color var(--transition-fast);
-}
+  .cmd-pill-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 0.45rem 0.75rem;
+  }
 
-.footer-strip-item.copyable {
-  cursor: pointer;
-}
-
-.footer-strip-item.copyable:hover {
-  color: var(--accent-red);
-}
-
-.footer-strip-separator {
-  color: rgba(255, 255, 255, 0.2);
-  user-select: none;
-}
-
-[data-theme="light"] .footer-strip-separator {
-  color: rgba(0, 0, 0, 0.2);
-}
-
-.mini-copied {
-  font-size: 0.72rem;
-  color: #10b981;
-  font-weight: 700;
-  margin-left: 0.25rem;
+  .cmd-pill-btn.copy {
+    flex: 0 0 auto;
+  }
 }
 
 /* ==========================================================================
