@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Printer, Download, MapPin, Phone, Mail } from 'lucide-react';
+import { RiPrinterLine, RiCloseLine } from 'react-icons/ri';
 import confetti from 'canvas-confetti';
 
 export default function CvModal({ isOpen, onClose, t, lang }) {
@@ -43,11 +43,11 @@ export default function CvModal({ isOpen, onClose, t, lang }) {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <button onClick={handlePrint} className="btn btn-primary" style={{ padding: '0.45rem 1rem', fontSize: '0.85rem' }}>
-              <Printer size={16} />
+              <RiPrinterLine size={17} />
               <span>{t.cvModal.printBtn}</span>
             </button>
             <button onClick={onClose} className="btn-icon" aria-label="Cerrar ventana">
-              <X size={20} />
+              <RiCloseLine size={22} />
             </button>
           </div>
         </div>

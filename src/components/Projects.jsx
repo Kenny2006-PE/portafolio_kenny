@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
-import { FolderGit2, ExternalLink, Sparkles, Layers, ShieldCheck, Map, Calendar, ArrowUpRight } from 'lucide-react';
-import { GithubIcon } from './SocialIcons';
+import { 
+  RiFolder3Line, 
+  RiGithubFill, 
+  RiArrowRightUpLine, 
+  RiCompassDiscoverLine, 
+  RiCalendarScheduleLine,
+  RiCodeSSlashLine
+} from 'react-icons/ri';
+import { 
+  SiGooglegemini, 
+  SiReact, 
+  SiNextdotjs, 
+  SiFlutter, 
+  SiSpringboot, 
+  SiMysql, 
+  SiSqlite, 
+  SiGit, 
+  SiNodedotjs, 
+  SiTypescript 
+} from 'react-icons/si';
 import TiltCard from './TiltCard';
 
 export default function Projects({ t }) {
@@ -24,11 +42,25 @@ export default function Projects({ t }) {
 
   const getProjectIcon = (id) => {
     switch (id) {
-      case 'monia': return <Sparkles size={18} color="#ef4444" />;
-      case 'marketmap': return <Map size={18} color="#3b82f6" />;
-      case 'reseratec': return <Calendar size={18} color="#8b5cf6" />;
-      default: return <Layers size={18} color="var(--accent-purple)" />;
+      case 'monia': return <SiGooglegemini size={19} color="#ef4444" />;
+      case 'marketmap': return <RiCompassDiscoverLine size={20} color="#3b82f6" />;
+      case 'reseratec': return <RiCalendarScheduleLine size={20} color="#8b5cf6" />;
+      default: return <RiCodeSSlashLine size={19} color="var(--accent-purple)" />;
     }
+  };
+
+  const getTechIcon = (tech) => {
+    if (tech.includes('React')) return <SiReact size={12} color="#61dafb" />;
+    if (tech.includes('Next.js')) return <SiNextdotjs size={12} color="#ffffff" />;
+    if (tech.includes('Flutter')) return <SiFlutter size={12} color="#02569B" />;
+    if (tech.includes('Spring')) return <SiSpringboot size={12} color="#6DB33F" />;
+    if (tech.includes('MySQL')) return <SiMysql size={12} color="#4479A1" />;
+    if (tech.includes('Gemini')) return <SiGooglegemini size={12} color="#ef4444" />;
+    if (tech.includes('SQLite')) return <SiSqlite size={12} color="#003B57" />;
+    if (tech.includes('Git')) return <SiGit size={12} color="#F05032" />;
+    if (tech.includes('Node')) return <SiNodedotjs size={12} color="#339933" />;
+    if (tech.includes('TypeScript')) return <SiTypescript size={12} color="#3178C6" />;
+    return null;
   };
 
   return (
@@ -37,7 +69,7 @@ export default function Projects({ t }) {
         {/* Section Header */}
         <div className="section-header animate__animated animate__fadeIn">
           <div className="section-tag">
-            <FolderGit2 size={14} />
+            <RiFolder3Line size={15} />
             <span>{t.nav.projects}</span>
           </div>
           <h2 className="section-title">
@@ -80,7 +112,7 @@ export default function Projects({ t }) {
                       className="btn-icon"
                       title="Ver repositorio en GitHub"
                     >
-                      <GithubIcon size={17} />
+                      <RiGithubFill size={19} />
                     </a>
                     <a
                       href={project.demo !== '#' ? project.demo : project.github}
@@ -89,7 +121,7 @@ export default function Projects({ t }) {
                       className="btn-icon"
                       title="Ver detalles del proyecto"
                     >
-                      <ArrowUpRight size={17} />
+                      <RiArrowRightUpLine size={19} />
                     </a>
                   </div>
                 </div>
@@ -106,13 +138,17 @@ export default function Projects({ t }) {
                   <strong>Highlight:</strong> {project.metrics}
                 </div>
 
-                {/* Tech Stack Chips */}
+                {/* Tech Stack Chips with Brand Logos */}
                 <div className="project-tech-list">
-                  {project.techStack.map((tech, index) => (
-                    <span key={index} className="tech-chip">
-                      {tech}
-                    </span>
-                  ))}
+                  {project.techStack.map((tech, index) => {
+                    const icon = getTechIcon(tech);
+                    return (
+                      <span key={index} className="tech-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                        {icon}
+                        <span>{tech}</span>
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             </TiltCard>

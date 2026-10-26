@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Menu, X, FileText, Sparkles, Moon, Sun } from 'lucide-react';
+import { 
+  RiMenu4Line, 
+  RiCloseLine, 
+  RiFileTextLine, 
+  RiMoonClearFill, 
+  RiSunFill, 
+  RiSparklingFill 
+} from 'react-icons/ri';
 
 export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,7 +34,9 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
       <div className="navbar-container">
         {/* Brand Logo */}
         <a href="#inicio" className="brand-logo" onClick={(e) => handleNavClick(e, '#inicio')}>
-          <div className="brand-badge">KP</div>
+          <div className="brand-badge">
+            <RiSparklingFill size={18} />
+          </div>
           <div>
             <span style={{ fontWeight: 800 }}>KENNY</span>{' '}
             <span className="gradient-text" style={{ fontWeight: 800 }}>PALACIN</span>
@@ -90,9 +99,9 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
             </div>
             <div className="theme-toggle-thumb">
               {theme === 'dark' ? (
-                <Moon size={13} color="#64748b" style={{ position: 'relative', zIndex: 3 }} />
+                <RiMoonClearFill size={14} color="#64748b" style={{ position: 'relative', zIndex: 3 }} />
               ) : (
-                <Sun size={15} color="#fff" style={{ position: 'relative', zIndex: 3 }} />
+                <RiSunFill size={15} color="#fff" style={{ position: 'relative', zIndex: 3 }} />
               )}
             </div>
           </button>
@@ -103,7 +112,7 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
             className="btn btn-primary animate__animated animate__fadeIn"
             style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem' }}
           >
-            <FileText size={15} />
+            <RiFileTextLine size={16} />
             <span style={{ display: 'none', minWidth: '0px' }} className="cv-btn-text">
               {t.nav.viewCv}
             </span>
@@ -116,7 +125,7 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Abrir menú"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <RiCloseLine size={24} /> : <RiMenu4Line size={24} />}
           </button>
         </div>
       </div>
@@ -152,7 +161,7 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
             className="btn btn-primary"
             style={{ marginTop: '0.5rem' }}
           >
-            <FileText size={16} />
+            <RiFileTextLine size={16} />
             {t.nav.viewCv}
           </button>
         </div>

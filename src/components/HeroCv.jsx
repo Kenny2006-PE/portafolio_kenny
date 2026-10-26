@@ -1,20 +1,25 @@
 import React from 'react';
 import { 
-  FileText, 
-  Download, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  ArrowRight, 
-  Sparkles, 
-  Terminal, 
-  CheckCircle2, 
-  Code2, 
-  Send,
-  Zap,
-  Flame
-} from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './SocialIcons';
+  RiMapPin2Line, 
+  RiPhoneLine, 
+  RiMailLine, 
+  RiLinkedinBoxFill, 
+  RiGithubFill, 
+  RiDownload2Line, 
+  RiArrowRightLine, 
+  RiWhatsappLine, 
+  RiTerminalBoxLine, 
+  RiSparklingFill, 
+  RiFireFill,
+  RiVerifiedBadgeLine
+} from 'react-icons/ri';
+import { 
+  SiGooglegemini, 
+  SiNextdotjs, 
+  SiReact, 
+  SiSpringboot, 
+  SiFlutter 
+} from 'react-icons/si';
 import TypedText from './TypedText';
 import AnimatedStat from './AnimatedStat';
 import TiltCard from './TiltCard';
@@ -77,7 +82,7 @@ export default function HeroCv({ t, onOpenCv }) {
             <div className="hero-status-badge animate__animated animate__pulse animate__infinite animate__slower">
               <span className="pulse-dot" />
               <span>{t.personal.badge}</span>
-              <Sparkles size={13} color="#10b981" />
+              <RiSparklingFill size={14} color="#10b981" />
             </div>
 
             {/* Name with Dynamic Shimmer Gradient */}
@@ -97,18 +102,18 @@ export default function HeroCv({ t, onOpenCv }) {
               {t.personal.summary}
             </p>
 
-            {/* Contact Pills / Direct CV Links with hover microinteractions */}
+            {/* Contact Pills / Direct CV Links with Remix Icons */}
             <div className="hero-contact-chips">
               <span className="contact-chip">
-                <MapPin size={14} color="#ef4444" />
+                <RiMapPin2Line size={16} color="#ef4444" />
                 {t.personal.location}
               </span>
-              <a href={`tel:${t.personal.phone}`} className="contact-chip" title="Llamar o WhatsApp">
-                <Phone size={14} color="#10b981" />
+              <a href={`tel:${t.personal.phone}`} className="contact-chip" title="Llamar">
+                <RiPhoneLine size={16} color="#10b981" />
                 {t.personal.phone}
               </a>
               <a href={`mailto:${t.personal.email}`} className="contact-chip" title="Enviar correo">
-                <Mail size={14} color="#3b82f6" />
+                <RiMailLine size={16} color="#3b82f6" />
                 {t.personal.email}
               </a>
               <a 
@@ -118,7 +123,7 @@ export default function HeroCv({ t, onOpenCv }) {
                 className="contact-chip"
                 title="LinkedIn"
               >
-                <LinkedinIcon size={14} color="#0a66c2" />
+                <RiLinkedinBoxFill size={17} color="#0a66c2" />
                 LinkedIn
               </a>
               <a 
@@ -128,22 +133,22 @@ export default function HeroCv({ t, onOpenCv }) {
                 className="contact-chip"
                 title="GitHub"
               >
-                <GithubIcon size={14} color="#8b5cf6" />
-                GitHub
+                <RiGithubFill size={17} color="#8b5cf6" />
+                {t.personal.githubUser}
               </a>
             </div>
 
             {/* Call to Actions with Glowing Buttons & Ripple */}
             <div className="hero-cta-group">
               <button onClick={triggerCelebration} className="btn btn-primary btn-glow-pulse">
-                <Download size={18} />
+                <RiDownload2Line size={18} />
                 <span>{t.nav.downloadCv} / {t.nav.viewCv}</span>
-                <Flame size={16} color="#fbbf24" />
+                <RiFireFill size={16} color="#fbbf24" />
               </button>
               
               <a href="#proyectos" className="btn btn-secondary">
                 <span>{t.nav.projects}</span>
-                <ArrowRight size={17} />
+                <RiArrowRightLine size={17} />
               </a>
 
               <a 
@@ -152,7 +157,7 @@ export default function HeroCv({ t, onOpenCv }) {
                 rel="noreferrer"
                 className="btn btn-outline-red"
               >
-                <Send size={16} />
+                <RiWhatsappLine size={18} />
                 <span>WhatsApp</span>
               </a>
             </div>
@@ -183,8 +188,7 @@ export default function HeroCv({ t, onOpenCv }) {
                   </div>
                   <div className="terminal-title">kenny-palacin-cv.json</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <Zap size={13} color="var(--accent-red)" />
-                    <Terminal size={15} color="var(--accent-purple)" />
+                    <RiTerminalBoxLine size={18} color="var(--accent-purple)" />
                   </div>
                 </div>
 
@@ -242,22 +246,22 @@ export default function HeroCv({ t, onOpenCv }) {
                   <div>&#125;;</div>
                 </div>
 
-                {/* Floating Tech Badges with Floating Animation */}
+                {/* Floating Official Tech Brand Badges */}
                 <div className="card-tech-badges">
                   <span className="tech-tag-glow float-badge-1" style={{ borderColor: 'rgba(239, 68, 68, 0.4)', color: '#f87171' }}>
-                    <Sparkles size={12} /> Gemini 1.5 AI
+                    <SiGooglegemini size={14} color="#f87171" /> Gemini 1.5 AI
                   </span>
                   <span className="tech-tag-glow float-badge-2" style={{ borderColor: 'rgba(59, 130, 246, 0.4)', color: '#60a5fa' }}>
-                    <Code2 size={12} /> Next.js & React
+                    <SiNextdotjs size={14} color="#60a5fa" /> Next.js & React
                   </span>
                   <span className="tech-tag-glow float-badge-3" style={{ borderColor: 'rgba(139, 92, 246, 0.4)', color: '#c084fc' }}>
-                    <CheckCircle2 size={12} /> Spring Boot
+                    <SiSpringboot size={14} color="#10b981" /> Spring Boot
                   </span>
                   <span className="tech-tag-glow float-badge-4" style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
-                    Flutter & Dart
+                    <SiFlutter size={14} color="#38bdf8" /> Flutter & Dart
                   </span>
                   <span className="tech-tag-glow float-badge-5" style={{ borderColor: 'rgba(244, 63, 94, 0.4)', color: '#fb7185' }}>
-                    Scrum Certified
+                    <RiVerifiedBadgeLine size={14} color="#fb7185" /> Scrum Certified
                   </span>
                 </div>
               </div>

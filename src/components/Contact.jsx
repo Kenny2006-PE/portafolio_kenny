@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Check, Copy, Sparkles } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { 
+  RiMailSendLine, 
+  RiWhatsappLine, 
+  RiMapPin2Line, 
+  RiFileCopyLine, 
+  RiCheckLine, 
+  RiSendPlaneFill, 
+  RiSparklingFill 
+} from 'react-icons/ri';
 import confetti from 'canvas-confetti';
 
 export default function Contact({ t }) {
@@ -45,7 +52,7 @@ export default function Contact({ t }) {
           {/* Left Side: Direct Contact Details */}
           <div>
             <div className="section-tag" style={{ marginBottom: '1rem' }}>
-              <Sparkles size={14} />
+              <RiSparklingFill size={14} />
               <span>{t.nav.contact}</span>
             </div>
             
@@ -61,7 +68,7 @@ export default function Contact({ t }) {
               {/* Email item */}
               <div className="contact-info-card">
                 <div className="contact-info-icon" style={{ background: 'rgba(59, 130, 246, 0.12)', color: '#3b82f6' }}>
-                  <Mail size={20} />
+                  <RiMailSendLine size={21} />
                 </div>
                 <div style={{ flexGrow: 1, overflow: 'hidden' }}>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.contact.emailLabel}</div>
@@ -75,14 +82,14 @@ export default function Contact({ t }) {
                   title="Copiar correo"
                   aria-label="Copiar correo"
                 >
-                  {copiedEmail ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
+                  {copiedEmail ? <RiCheckLine size={18} color="#10b981" /> : <RiFileCopyLine size={18} />}
                 </button>
               </div>
 
               {/* Phone item */}
               <div className="contact-info-card">
                 <div className="contact-info-icon" style={{ background: 'rgba(16, 185, 129, 0.12)', color: '#10b981' }}>
-                  <Phone size={20} />
+                  <RiWhatsappLine size={21} />
                 </div>
                 <div style={{ flexGrow: 1 }}>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.contact.phoneLabel}</div>
@@ -96,14 +103,14 @@ export default function Contact({ t }) {
                   title="Copiar teléfono"
                   aria-label="Copiar teléfono"
                 >
-                  {copiedPhone ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
+                  {copiedPhone ? <RiCheckLine size={18} color="#10b981" /> : <RiFileCopyLine size={18} />}
                 </button>
               </div>
 
               {/* Location item */}
               <div className="contact-info-card">
                 <div className="contact-info-icon" style={{ background: 'rgba(239, 68, 68, 0.12)', color: '#ef4444' }}>
-                  <MapPin size={20} />
+                  <RiMapPin2Line size={21} />
                 </div>
                 <div style={{ flexGrow: 1 }}>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.contact.locationLabel}</div>
@@ -155,7 +162,7 @@ export default function Contact({ t }) {
               </div>
 
               <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem' }}>
-                <Send size={18} />
+                <RiSendPlaneFill size={18} />
                 <span>{t.contact.form.send}</span>
               </button>
 

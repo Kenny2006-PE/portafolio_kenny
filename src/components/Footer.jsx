@@ -1,6 +1,11 @@
 import React from 'react';
-import { Mail, Heart, Sparkles, ArrowUp } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { 
+  RiGithubFill, 
+  RiLinkedinBoxFill, 
+  RiMailLine, 
+  RiArrowUpLine, 
+  RiHeartFill 
+} from 'react-icons/ri';
 
 export default function Footer({ t, lang }) {
   const scrollToTop = () => {
@@ -30,7 +35,7 @@ export default function Footer({ t, lang }) {
               className="btn-icon"
               title="GitHub"
             >
-              <GithubIcon size={17} />
+              <RiGithubFill size={19} />
             </a>
             <a 
               href={t.personal.linkedin} 
@@ -39,14 +44,14 @@ export default function Footer({ t, lang }) {
               className="btn-icon"
               title="LinkedIn"
             >
-              <LinkedinIcon size={17} />
+              <RiLinkedinBoxFill size={19} />
             </a>
             <a 
               href={`mailto:${t.personal.email}`} 
               className="btn-icon"
               title="Email"
             >
-              <Mail size={17} />
+              <RiMailLine size={19} />
             </a>
           </div>
 
@@ -57,7 +62,7 @@ export default function Footer({ t, lang }) {
             title={lang === 'en' ? 'Back to top' : 'Volver arriba'}
             aria-label="Volver arriba"
           >
-            <ArrowUp size={18} />
+            <RiArrowUpLine size={19} />
           </button>
         </div>
       </div>

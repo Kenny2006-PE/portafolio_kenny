@@ -1,5 +1,16 @@
 import React from 'react';
-import { GraduationCap, Award, CheckCircle2, ShieldCheck, Sparkles, BookOpen } from 'lucide-react';
+import { 
+  RiGraduationCapLine, 
+  RiGraduationCapFill, 
+  RiAwardFill, 
+  RiAwardLine, 
+  RiShieldCheckLine, 
+  RiTranslate2, 
+  RiCodeSSlashLine, 
+  RiPaletteLine,
+  RiVerifiedBadgeFill
+} from 'react-icons/ri';
+import { SiGooglegemini } from 'react-icons/si';
 
 export default function EducationCerts({ t }) {
   const getCertBadgeColor = (type) => {
@@ -18,13 +29,32 @@ export default function EducationCerts({ t }) {
     }
   };
 
+  const getCertIcon = (type) => {
+    switch (type) {
+      case 'Inteligencia Artificial':
+      case 'Artificial Intelligence':
+        return <SiGooglegemini size={15} color="#f87171" />;
+      case 'Seguridad':
+      case 'Security':
+        return <RiShieldCheckLine size={16} color="#60a5fa" />;
+      case 'Idioma':
+      case 'Language':
+        return <RiTranslate2 size={16} color="#34d399" />;
+      case 'Diseño UX/UI':
+      case 'Design UX/UI':
+        return <RiPaletteLine size={16} color="#ec4899" />;
+      default:
+        return <RiCodeSSlashLine size={16} color="var(--accent-purple-light)" />;
+    }
+  };
+
   return (
     <section className="section-padding" id="educacion">
       <div className="content-wrapper">
         {/* Section Header */}
         <div className="section-header animate__animated animate__fadeIn">
           <div className="section-tag">
-            <GraduationCap size={14} />
+            <RiGraduationCapLine size={15} />
             <span>{t.nav.education}</span>
           </div>
           <h2 className="section-title">
@@ -41,7 +71,7 @@ export default function EducationCerts({ t }) {
           <div className="edu-column-card animate__animated animate__fadeInLeft">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
               <div className="brand-badge" style={{ width: '42px', height: '42px', borderRadius: '12px' }}>
-                <GraduationCap size={22} color="#fff" />
+                <RiGraduationCapFill size={22} color="#fff" />
               </div>
               <h3 style={{ fontSize: '1.45rem' }}>
                 {t.lang === 'en' ? 'Academic Background' : 'Formación Universitaria y Técnica'}
@@ -88,7 +118,7 @@ export default function EducationCerts({ t }) {
                   background: 'linear-gradient(135deg, #ef4444 0%, #8b5cf6 100%)' 
                 }}
               >
-                <Award size={22} color="#fff" />
+                <RiAwardFill size={22} color="#fff" />
               </div>
               <h3 style={{ fontSize: '1.45rem' }}>
                 {t.lang === 'en' ? 'Certifications & Activities' : 'Certificaciones y Actividades'}
@@ -98,11 +128,18 @@ export default function EducationCerts({ t }) {
             <div className="cert-list">
               {t.education.certifications.map((cert, cIdx) => {
                 const badgeStyle = getCertBadgeColor(cert.type);
+                const icon = getCertIcon(cert.type);
+
                 return (
                   <div key={cIdx} className="cert-row">
-                    <div>
-                      <div className="cert-name">{cert.title}</div>
-                      <div className="cert-issuer">{cert.issuer}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {icon}
+                      </div>
+                      <div>
+                        <div className="cert-name">{cert.title}</div>
+                        <div className="cert-issuer">{cert.issuer}</div>
+                      </div>
                     </div>
                     <span
                       style={{
