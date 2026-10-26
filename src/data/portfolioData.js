@@ -182,21 +182,18 @@ export const portfolioData = {
       ]
     },
     contact: {
-      title: "¿Hablamos de tu próximo proyecto?",
-      subtitle: "Estoy disponible para roles Full Stack, Mobile o proyectos innovadores con IA.",
-      emailLabel: "Correo Electrónico",
-      phoneLabel: "Teléfono / WhatsApp",
-      locationLabel: "Ubicación",
-      form: {
-        name: "Tu Nombre",
-        email: "Tu Correo Electrónico",
-        message: "Tu Mensaje",
-        send: "Enviar Mensaje",
-        sentSuccess: "¡Mensaje listo! Se abrirá tu cliente de correo.",
-        placeholderName: "Ej: Carlos Mendoza",
-        placeholderEmail: "carlos@empresa.com",
-        placeholderMessage: "Hola Kenny, tenemos una oportunidad para ti..."
-      }
+      tag: "05 // CONTACTO",
+      title: "Contacto",
+      punchline: "La interfaz, el backend y la solución con IA.",
+      desc: "Web o móvil. Lo armo yo, y lo dejo listo y funcionando.",
+      writeEmailBtn: "Escribir correo",
+      copyEmailBtn: "Copiar email",
+      copiedEmailText: "¡Email copiado!",
+      channels: [
+        { user: "Kenny2006-PE", label: "GitHub", type: "github", url: "https://github.com/Kenny2006-PE" },
+        { user: "kenny-palacin", label: "LinkedIn", type: "linkedin", url: "https://www.linkedin.com/in/kenny-palacin/" },
+        { user: "+51 937 765 918", label: "WhatsApp", type: "whatsapp", url: "https://wa.me/51937765918?text=Hola%20Kenny,%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20proyecto" }
+      ]
     },
     cvModal: {
       title: "Currículum Vitae - Kenny Palacin Cristobal",
@@ -389,21 +386,18 @@ export const portfolioData = {
       ]
     },
     contact: {
-      title: "Let's build your next project together",
-      subtitle: "Available for Full Stack and Mobile roles, or innovative AI-driven ventures.",
-      emailLabel: "Email Address",
-      phoneLabel: "Phone / WhatsApp",
-      locationLabel: "Location",
-      form: {
-        name: "Your Name",
-        email: "Your Email Address",
-        message: "Your Message",
-        send: "Send Message",
-        sentSuccess: "Message prepared! Your mail client will open.",
-        placeholderName: "e.g. John Doe",
-        placeholderEmail: "john@company.com",
-        placeholderMessage: "Hi Kenny, we have an exciting opportunity for you..."
-      }
+      tag: "05 // CONTACT",
+      title: "Contact",
+      punchline: "The UI, the backend, and AI integration.",
+      desc: "Web or mobile. I build it end-to-end, and leave it running in production.",
+      writeEmailBtn: "Write email",
+      copyEmailBtn: "Copy email",
+      copiedEmailText: "Email copied!",
+      channels: [
+        { user: "Kenny2006-PE", label: "GitHub", type: "github", url: "https://github.com/Kenny2006-PE" },
+        { user: "kenny-palacin", label: "LinkedIn", type: "linkedin", url: "https://www.linkedin.com/in/kenny-palacin/" },
+        { user: "+51 937 765 918", label: "WhatsApp", type: "whatsapp", url: "https://wa.me/51937765918?text=Hello%20Kenny,%20I%20would%20like%20to%20connect%20regarding%20a%20project" }
+      ]
     },
     cvModal: {
       title: "Curriculum Vitae - Kenny Palacin Cristobal",

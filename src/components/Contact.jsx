@@ -2,187 +2,120 @@ import React, { useState } from 'react';
 import { 
   RiMailSendLine, 
   RiWhatsappLine, 
-  RiMapPin2Line, 
+  RiGithubFill, 
+  RiLinkedinBoxFill, 
   RiFileCopyLine, 
-  RiCheckLine, 
-  RiSendPlaneFill, 
-  RiSparklingFill 
+  RiCheckLine,
+  RiArrowRightUpLine
 } from 'react-icons/ri';
 import confetti from 'canvas-confetti';
 
 export default function Contact({ t }) {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
-  const handleCopy = (text, type) => {
-    navigator.clipboard.writeText(text);
-    if (type === 'email') {
-      setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2200);
-    } else {
-      setCopiedPhone(true);
-      setTimeout(() => setCopiedPhone(false), 2200);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(t.personal.email);
+    setCopiedEmail(true);
 
     confetti({
-      particleCount: 90,
-      spread: 70,
-      origin: { y: 0.7 },
+      particleCount: 70,
+      spread: 60,
+      origin: { y: 0.8 },
       colors: ['#ef4444', '#8b5cf6', '#3b82f6', '#10b981']
     });
 
-    const mailtoSubject = encodeURIComponent(`Contacto desde Portafolio: ${formData.name}`);
-    const mailtoBody = encodeURIComponent(`Hola Kenny,\n\nSoy ${formData.name} (${formData.email}).\n\n${formData.message}`);
-    
-    // Fallback opening user's mail client
-    window.location.href = `mailto:${t.personal.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
+    setTimeout(() => setCopiedEmail(false), 2400);
+  };
+
+  const getChannelIcon = (type) => {
+    switch (type) {
+      case 'github': return <RiGithubFill size={18} />;
+      case 'linkedin': return <RiLinkedinBoxFill size={18} />;
+      case 'whatsapp': return <RiWhatsappLine size={18} />;
+      default: return <RiArrowRightUpLine size={18} />;
+    }
   };
 
   return (
     <section className="section-padding" id="contacto">
       <div className="content-wrapper">
-        <div className="contact-container-grid animate__animated animate__fadeIn">
-          {/* Left Side: Direct Contact Details */}
-          <div>
-            <div className="section-tag" style={{ marginBottom: '1rem' }}>
-              <RiSparklingFill size={14} />
-              <span>{t.nav.contact}</span>
+        <div className="contact-developer-section animate__animated animate__fadeIn">
+          <div className="contact-dev-grid">
+            {/* Left Column: Heading, Punchline & Action Pills */}
+            <div>
+              <span className="contact-mono-tag">{t.contact.tag}</span>
+              
+              <h2 className="contact-main-heading">{t.contact.title}</h2>
+
+              <div className="contact-punchline">
+                {t.contact.punchline}
+              </div>
+
+              <p className="contact-desc-text">
+                {t.contact.desc}
+              </p>
+
+              {/* Action Buttons Row */}
+              <div className="contact-action-pills">
+                <a 
+                  href={`mailto:${t.personal.email}?subject=Contacto%20desde%20Portafolio`} 
+                  className="btn-pill-red"
+                >
+                  {t.contact.writeEmailBtn}
+                </a>
+
+                <button 
+                  onClick={handleCopyEmail} 
+                  className="btn-pill-outline"
+                  aria-label="Copiar correo electrónico"
+                >
+                  {copiedEmail ? (
+                    <>
+                      <RiCheckLine size={18} color="#10b981" />
+                      <span style={{ color: '#10b981' }}>{t.contact.copiedEmailText}</span>
+                    </>
+                  ) : (
+                    <>
+                      <RiFileCopyLine size={18} />
+                      <span>{t.contact.copyEmailBtn}</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
-            
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
-              <span className="gradient-text">{t.contact.title}</span>
-            </h2>
 
-            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '2rem' }}>
-              {t.contact.subtitle}
-            </p>
+            {/* Right Column: Direct Channels Stack & Glowing Mail Indicator */}
+            <div className="contact-channels-column">
+              {/* Top-Right Glowing Red Mail Indicator */}
+              <div className="contact-floating-mail-box" title="Disponible para mensajes">
+                <RiMailSendLine size={24} />
+              </div>
 
-            <div className="contact-quick-list">
-              {/* Email item */}
-              <div className="contact-info-card">
-                <div className="contact-info-icon" style={{ background: 'rgba(59, 130, 246, 0.12)', color: '#3b82f6' }}>
-                  <RiMailSendLine size={21} />
-                </div>
-                <div style={{ flexGrow: 1, overflow: 'hidden' }}>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.contact.emailLabel}</div>
-                  <div style={{ fontWeight: 600, fontSize: '0.92rem', wordBreak: 'break-all' }}>
-                    {t.personal.email}
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleCopy(t.personal.email, 'email')}
-                  className="btn-icon"
-                  title="Copiar correo"
-                  aria-label="Copiar correo"
+              {/* Stack of Channel Cards */}
+              {t.contact.channels.map((channel, idx) => (
+                <a
+                  key={idx}
+                  href={channel.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="contact-channel-bar"
+                  title={`Abrir ${channel.label}`}
                 >
-                  {copiedEmail ? <RiCheckLine size={18} color="#10b981" /> : <RiFileCopyLine size={18} />}
-                </button>
-              </div>
-
-              {/* Phone item */}
-              <div className="contact-info-card">
-                <div className="contact-info-icon" style={{ background: 'rgba(16, 185, 129, 0.12)', color: '#10b981' }}>
-                  <RiWhatsappLine size={21} />
-                </div>
-                <div style={{ flexGrow: 1 }}>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.contact.phoneLabel}</div>
-                  <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>
-                    {t.personal.phone}
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleCopy(t.personal.phone, 'phone')}
-                  className="btn-icon"
-                  title="Copiar teléfono"
-                  aria-label="Copiar teléfono"
-                >
-                  {copiedPhone ? <RiCheckLine size={18} color="#10b981" /> : <RiFileCopyLine size={18} />}
-                </button>
-              </div>
-
-              {/* Location item */}
-              <div className="contact-info-card">
-                <div className="contact-info-icon" style={{ background: 'rgba(239, 68, 68, 0.12)', color: '#ef4444' }}>
-                  <RiMapPin2Line size={21} />
-                </div>
-                <div style={{ flexGrow: 1 }}>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.contact.locationLabel}</div>
-                  <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>
-                    {t.personal.location}
-                  </div>
-                </div>
-              </div>
+                  <span className="channel-user-handle">{channel.user}</span>
+                  <span className="channel-tag-pill">
+                    {getChannelIcon(channel.type)}
+                    <span>{channel.label}</span>
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Right Side: Interactive Quick Form */}
-          <div>
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-group">
-                <label className="form-label">{t.contact.form.name}</label>
-                <input
-                  type="text"
-                  required
-                  placeholder={t.contact.form.placeholderName}
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">{t.contact.form.email}</label>
-                <input
-                  type="email"
-                  required
-                  placeholder={t.contact.form.placeholderEmail}
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">{t.contact.form.message}</label>
-                <textarea
-                  required
-                  rows="4"
-                  placeholder={t.contact.form.placeholderMessage}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="form-textarea"
-                />
-              </div>
-
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem' }}>
-                <RiSendPlaneFill size={18} />
-                <span>{t.contact.form.send}</span>
-              </button>
-
-              {submitted && (
-                <div
-                  style={{
-                    padding: '0.75rem 1rem',
-                    borderRadius: '10px',
-                    background: 'rgba(16, 185, 129, 0.15)',
-                    border: '1px solid rgba(16, 185, 129, 0.35)',
-                    color: '#10b981',
-                    fontSize: '0.9rem',
-                    textAlign: 'center',
-                    marginTop: '0.5rem'
-                  }}
-                >
-                  {t.contact.form.sentSuccess}
-                </div>
-              )}
-            </form>
+          {/* Bottom Monospace Meta Strip */}
+          <div className="contact-footer-strip">
+            <a href={`mailto:${t.personal.email}`}>{t.personal.email}</a>
+            <a href={`tel:${t.personal.phone}`}>{t.personal.phone}</a>
+            <span>{t.personal.location}</span>
           </div>
         </div>
       </div>
