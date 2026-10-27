@@ -17,133 +17,84 @@ export default function ParticleCanvas({ theme }) {
     };
     window.addEventListener('resize', handleResize);
 
-    const mouse = {
-      x: null,
-      y: null,
-      radius: 130
-    };
+    let mouseX = width / 2;
+    let mouseY = height / 2;
+    let targetMouseX = width / 2;
+    let targetMouseY = height / 2;
 
     const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
     };
-
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
-
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
 
-    // Particle color palette matching theme
     const isDark = theme === 'dark';
-    const colors = isDark 
-      ? ['#ef4444', '#8b5cf6', '#3b82f6', '#ec4899'] 
-      : ['#ef4444', '#8b5cf6', '#3b82f6'];
+    let step = 0;
 
-    const particleCount = Math.min(Math.floor((width * height) / 16000), 75);
-    const particles = [];
+    // Sober mathematical wave streams (no bright glowing dots, no neon fireflies)
+    const waves = [
+      { amplitude: 40, frequency: 0.0028, speed: 0.009, offset: 0, opacity: isDark ? 0.07 : 0.04 },
+      { amplitude: 60, frequency: 0.0018, speed: 0.007, offset: 2.1, opacity: isDark ? 0.05 : 0.035 },
+      { amplitude: 35, frequency: 0.0035, speed: 0.011, offset: 4.2, opacity: isDark ? 0.06 : 0.03 },
+      { amplitude: 75, frequency: 0.0014, speed: 0.005, offset: 1.3, opacity: isDark ? 0.045 : 0.025 },
+      { amplitude: 48, frequency: 0.0022, speed: 0.008, offset: 3.4, opacity: isDark ? 0.055 : 0.035 }
+    ];
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 2 + 1.2;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.density = Math.random() * 25 + 5;
-        this.vx = (Math.random() - 0.5) * 0.75;
-        this.vy = (Math.random() - 0.5) * 0.75;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.alpha = Math.random() * 0.5 + 0.3;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = isDark ? this.alpha : this.alpha * 0.6;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      update() {
-        // Natural drift
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Bounce on boundaries
-        if (this.x < 0 || this.x > width) this.vx = -this.vx;
-        if (this.y < 0 || this.y > height) this.vy = -this.vy;
-
-        // Mouse interaction (repulsion)
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius) {
-            const forceDirectionX = dx / distance;
-            const forceDirectionY = dy / distance;
-            const maxDistance = mouse.radius;
-            const force = (maxDistance - distance) / maxDistance;
-            const directionX = forceDirectionX * force * this.density * 0.4;
-            const directionY = forceDirectionY * force * this.density * 0.4;
-            this.x -= directionX;
-            this.y -= directionY;
-          }
-        }
-      }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    // Connect particles with faint glowing lines
-    const connectLines = () => {
-      const maxDist = 110;
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a + 1; b < particles.length; b++) {
-          const dx = particles[a].x - particles[b].x;
-          const dy = particles[a].y - particles[b].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < maxDist) {
-            const opacity = (1 - distance / maxDist) * (isDark ? 0.25 : 0.12);
-            ctx.beginPath();
-            ctx.strokeStyle = particles[a].color;
-            ctx.globalAlpha = opacity;
-            ctx.lineWidth = 0.8;
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    };
-
-    const animate = () => {
+    const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].draw();
-        particles[i].update();
-      }
+      // Smooth mouse lerp
+      mouseX += (targetMouseX - mouseX) * 0.04;
+      mouseY += (targetMouseY - mouseY) * 0.04;
 
-      connectLines();
-      animationFrameId = requestAnimationFrame(animate);
+      const mouseFactorY = (mouseY / height - 0.5) * 45;
+      const mouseFactorX = (mouseX / width - 0.5) * 0.0008;
+
+      step += 1;
+
+      // Draw each smooth, sober geometric line
+      waves.forEach((wave, idx) => {
+        ctx.beginPath();
+        ctx.lineWidth = 1.1;
+
+        // Subtle sober slate tones
+        const baseColor = isDark 
+          ? (idx % 2 === 0 ? '148, 163, 184' : '203, 213, 225') 
+          : (idx % 2 === 0 ? '100, 116, 139' : '148, 163, 184');
+        
+        ctx.strokeStyle = `rgba(${baseColor}, ${wave.opacity})`;
+
+        const centerY = height * 0.55 + Math.sin(step * 0.004 + wave.offset) * 25 + mouseFactorY;
+
+        for (let x = 0; x <= width; x += 12) {
+          const distanceToMouse = Math.abs(x - mouseX);
+          const mouseDamping = Math.max(0, 1 - distanceToMouse / 380);
+          const mouseLift = Math.sin(distanceToMouse * 0.008 - step * 0.015) * 16 * mouseDamping;
+
+          const y =
+            centerY +
+            Math.sin(x * (wave.frequency + mouseFactorX) + step * wave.speed + wave.offset) * wave.amplitude +
+            Math.cos(x * 0.0012 + step * 0.006) * (wave.amplitude * 0.35) +
+            mouseLift;
+
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        ctx.stroke();
+      });
+
+      animationFrameId = requestAnimationFrame(render);
     };
 
-    animate();
+    render();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [theme]);
 

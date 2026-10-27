@@ -46,10 +46,10 @@ export default function Contact({ t }) {
         <div className="section-header animate__animated animate__fadeIn">
           <div className="section-tag">
             <RiTerminalBoxLine size={15} />
-            <span>// 05 {t.nav.contact.toUpperCase()}</span>
+            <span>{t.nav.contact}</span>
           </div>
           <h2 className="section-title">
-            <span className="gradient-text">{t.contact.title}</span>
+            {t.contact.title}
           </h2>
           <p className="section-subtitle">
             {t.contact.subtitle}

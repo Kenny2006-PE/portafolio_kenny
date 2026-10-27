@@ -25,8 +25,8 @@ export default function TypedText({ strings }) {
   return (
     <span 
       ref={elRef} 
-      className="gradient-text-purple-blue"
-      style={{ fontWeight: 700 }}
+      className="hero-typed-role"
+      style={{ fontWeight: 700, color: 'var(--text-primary)' }}
     />
   );
 }

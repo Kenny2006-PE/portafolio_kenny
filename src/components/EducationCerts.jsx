@@ -58,7 +58,7 @@ export default function EducationCerts({ t }) {
             <span>{t.nav.education}</span>
           </div>
           <h2 className="section-title">
-            <span className="gradient-text">{t.education.title}</span>
+            {t.education.title}
           </h2>
           <p className="section-subtitle">
             {t.education.subtitle}
@@ -115,7 +115,7 @@ export default function EducationCerts({ t }) {
                   width: '42px', 
                   height: '42px', 
                   borderRadius: '12px',
-                  background: 'linear-gradient(135deg, #ef4444 0%, #8b5cf6 100%)' 
+                  background: 'var(--accent-red)' 
                 }}
               >
                 <RiAwardFill size={22} color="#fff" />

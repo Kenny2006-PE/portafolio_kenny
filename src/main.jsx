@@ -1,5 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import 'animate.css'
+import 'magic.css/dist/magic.min.css'
 import './index.css'
 import App from './App.jsx'
 

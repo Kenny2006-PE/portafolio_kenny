@@ -5,7 +5,8 @@ import {
   RiArrowRightUpLine, 
   RiCompassDiscoverLine, 
   RiCalendarScheduleLine,
-  RiCodeSSlashLine
+  RiCodeSSlashLine,
+  RiWallet3Line
 } from 'react-icons/ri';
 import { 
   SiGooglegemini, 
@@ -19,6 +20,7 @@ import {
   SiNodedotjs, 
   SiTypescript 
 } from 'react-icons/si';
+import { motion, AnimatePresence } from 'framer-motion';
 import TiltCard from './TiltCard';
 
 export default function Projects({ t }) {
@@ -42,7 +44,7 @@ export default function Projects({ t }) {
 
   const getProjectIcon = (id) => {
     switch (id) {
-      case 'monia': return <SiGooglegemini size={19} color="#ef4444" />;
+      case 'monia': return <RiWallet3Line size={20} color="#ef4444" />;
       case 'marketmap': return <RiCompassDiscoverLine size={20} color="#3b82f6" />;
       case 'reseratec': return <RiCalendarScheduleLine size={20} color="#8b5cf6" />;
       default: return <RiCodeSSlashLine size={19} color="var(--accent-purple)" />;
@@ -73,87 +75,110 @@ export default function Projects({ t }) {
             <span>{t.nav.projects}</span>
           </div>
           <h2 className="section-title">
-            <span className="gradient-text">{t.projects.title}</span>
+            {t.projects.title}
           </h2>
           <p className="section-subtitle">
             {t.projects.subtitle}
           </p>
         </div>
 
-        {/* Filter Bar */}
+        {/* Filter Bar with framer-motion sliding pill */}
         <div className="projects-filter-bar">
-          {categories.map((cat, idx) => (
-            <button
-              key={idx}
-              className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                className={`filter-btn ${isActive ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+                style={{ position: 'relative' }}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeFilterPill"
+                    className="filter-btn-active-pill"
+                    transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                  />
+                )}
+                <span style={{ position: 'relative', zIndex: 2 }}>{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Projects Grid with 3D TiltCards */}
-        <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <TiltCard key={project.id} maxTilt={10} scale={1.02} style={{ height: '100%', display: 'flex' }}>
-              <div className="project-card animate__animated animate__fadeInUp" style={{ width: '100%', height: '100%' }}>
-                <div className="project-top-row">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                    {getProjectIcon(project.id)}
-                    <span className="project-category-tag">{project.badge}</span>
+        {/* Projects Grid with 3D TiltCards & AnimatePresence */}
+        <motion.div layout className="projects-grid">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.94, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 10 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                style={{ height: '100%' }}
+              >
+                <TiltCard key={project.id} maxTilt={10} scale={1.02} style={{ height: '100%', display: 'flex' }}>
+                  <div className="project-card" style={{ width: '100%', height: '100%' }}>
+                    <div className="project-top-row">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        {getProjectIcon(project.id)}
+                        <span className="project-category-tag">{project.badge}</span>
+                      </div>
+
+                      <div className="project-links">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn-icon"
+                          title="Ver repositorio en GitHub"
+                        >
+                          <RiGithubFill size={19} />
+                        </a>
+                        <a
+                          href={project.demo !== '#' ? project.demo : project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn-icon"
+                          title="Ver detalles del proyecto"
+                        >
+                          <RiArrowRightUpLine size={19} />
+                        </a>
+                      </div>
+                    </div>
+
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-subtitle">{project.subtitle}</p>
+
+                    <p className="project-description">
+                      {project.description}
+                    </p>
+
+                    {/* Key Architecture / Impact Highlight */}
+                    <div className="project-metrics-box">
+                      <strong>Highlight:</strong> {project.metrics}
+                    </div>
+
+                    {/* Tech Stack Chips with Brand Logos */}
+                    <div className="project-tech-list">
+                      {project.techStack.map((tech, index) => {
+                        const icon = getTechIcon(tech);
+                        return (
+                          <span key={index} className="tech-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                            {icon}
+                            <span>{tech}</span>
+                          </span>
+                        );
+                      })}
+                    </div>
                   </div>
-
-                  <div className="project-links">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-icon"
-                      title="Ver repositorio en GitHub"
-                    >
-                      <RiGithubFill size={19} />
-                    </a>
-                    <a
-                      href={project.demo !== '#' ? project.demo : project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-icon"
-                      title="Ver detalles del proyecto"
-                    >
-                      <RiArrowRightUpLine size={19} />
-                    </a>
-                  </div>
-                </div>
-
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-subtitle">{project.subtitle}</p>
-
-                <p className="project-description">
-                  {project.description}
-                </p>
-
-                {/* Key Architecture / Impact Highlight */}
-                <div className="project-metrics-box">
-                  <strong>Highlight:</strong> {project.metrics}
-                </div>
-
-                {/* Tech Stack Chips with Brand Logos */}
-                <div className="project-tech-list">
-                  {project.techStack.map((tech, index) => {
-                    const icon = getTechIcon(tech);
-                    return (
-                      <span key={index} className="tech-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                        {icon}
-                        <span>{tech}</span>
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-            </TiltCard>
-          ))}
-        </div>
+                </TiltCard>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

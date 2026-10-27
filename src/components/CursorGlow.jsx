@@ -39,8 +39,8 @@ export default function CursorGlow({ theme }) {
         opacity: visible ? 1 : 0,
         transition: 'opacity 0.4s ease',
         background: isDark
-          ? `radial-gradient(650px circle at ${pos.x}px ${pos.y}px, rgba(139, 92, 246, 0.12), rgba(239, 68, 68, 0.06), transparent 70%)`
-          : `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, rgba(139, 92, 246, 0.08), rgba(59, 130, 246, 0.05), transparent 70%)`
+          ? `radial-gradient(550px circle at ${pos.x}px ${pos.y}px, rgba(255, 255, 255, 0.025), transparent 70%)`
+          : `radial-gradient(550px circle at ${pos.x}px ${pos.y}px, rgba(15, 23, 42, 0.02), transparent 70%)`
       }}
     />
   );

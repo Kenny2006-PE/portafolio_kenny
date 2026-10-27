@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { 
   RiMapPin2Line, 
   RiPhoneLine, 
@@ -9,9 +9,10 @@ import {
   RiArrowRightLine, 
   RiWhatsappLine, 
   RiTerminalBoxLine, 
-  RiSparklingFill, 
-  RiFireFill,
-  RiVerifiedBadgeLine
+  RiCommandLine, 
+  RiFileLine,
+  RiVerifiedBadgeLine,
+  RiCpuLine
 } from 'react-icons/ri';
 import { 
   SiGooglegemini, 
@@ -20,12 +21,28 @@ import {
   SiSpringboot, 
   SiFlutter 
 } from 'react-icons/si';
+import { motion } from 'framer-motion';
+import { animate, stagger } from 'animejs';
 import TypedText from './TypedText';
 import AnimatedStat from './AnimatedStat';
 import TiltCard from './TiltCard';
 import confetti from 'canvas-confetti';
 
 export default function HeroCv({ t, onOpenCv }) {
+  const codeLinesRef = useRef(null);
+
+  useEffect(() => {
+    if (codeLinesRef.current) {
+      const lines = codeLinesRef.current.querySelectorAll('.code-line');
+      animate(lines, {
+        opacity: [0, 1],
+        translateX: [-15, 0],
+        delay: stagger(35, { start: 150 }),
+        ease: 'outQuad',
+        duration: 500
+      });
+    }
+  }, []);
   const triggerCelebration = () => {
     // Multi-burst fireworks confetti
     const count = 200;
@@ -78,17 +95,21 @@ export default function HeroCv({ t, onOpenCv }) {
         <div className="hero-grid">
           {/* Left Column: CV Presentation & Intro */}
           <div className="animate__animated animate__fadeInLeft">
-            {/* Availability Badge with pulsing radar effect */}
-            <div className="hero-status-badge animate__animated animate__pulse animate__infinite animate__slower">
-              <span className="pulse-dot" />
-              <span>{t.personal.badge}</span>
-              <RiSparklingFill size={14} color="#10b981" />
-            </div>
+            {/* Developer Status Badge - No green dot, no AI sparkles */}
+            <motion.div 
+              className="hero-status-badge dev-status-capsule magictime puffIn"
+              whileHover={{ scale: 1.03, y: -2 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            >
+              <RiCommandLine size={15} className="status-dev-icon" />
+              <span className="status-tag-prefix">// status:</span>
+              <span className="status-text-content">{t.personal.badge}</span>
+            </motion.div>
 
-            {/* Name with Dynamic Shimmer Gradient */}
+            {/* Name - Sober and bold */}
             <h1 className="hero-name">
               KENNY{' '}
-              <span className="gradient-text text-shimmer">PALACIN CRISTOBAL</span>
+              <span className="hero-name-accent">PALACIN CRISTOBAL</span>
             </h1>
 
             {/* Dynamic Typewriter Roles via Typed.js */}
@@ -138,28 +159,43 @@ export default function HeroCv({ t, onOpenCv }) {
               </a>
             </div>
 
-            {/* Call to Actions with Glowing Buttons & Ripple */}
+            {/* Call to Actions with Sober Executive Buttons & Micro-interactions */}
             <div className="hero-cta-group">
-              <button onClick={triggerCelebration} className="btn btn-primary btn-glow-pulse">
+              <motion.button 
+                onClick={triggerCelebration} 
+                className="btn btn-primary"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              >
                 <RiDownload2Line size={18} />
                 <span>{t.nav.downloadCv} / {t.nav.viewCv}</span>
-                <RiFireFill size={16} color="#fbbf24" />
-              </button>
+                <RiFileLine size={16} />
+              </motion.button>
               
-              <a href="#proyectos" className="btn btn-secondary">
+              <motion.a 
+                href="#proyectos" 
+                className="btn btn-secondary"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              >
                 <span>{t.nav.projects}</span>
                 <RiArrowRightLine size={17} />
-              </a>
+              </motion.a>
 
-              <a 
+              <motion.a 
                 href={t.personal.whatsapp}
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-outline-red"
+                className="btn btn-whatsapp"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
               >
                 <RiWhatsappLine size={18} />
                 <span>WhatsApp</span>
-              </a>
+              </motion.a>
             </div>
 
             {/* CV Highlights Row with animejs Counting Stats */}
@@ -192,77 +228,102 @@ export default function HeroCv({ t, onOpenCv }) {
                   </div>
                 </div>
 
-                {/* Live Code Representation */}
-                <div className="code-snippet">
-                  <div><span className="code-keyword">const</span> <span className="code-prop">engineer</span> = &#123;</div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                {/* Live Code Representation with animejs stagger entrance */}
+                <div className="code-snippet" ref={codeLinesRef}>
+                  <div className="code-line"><span className="code-keyword">const</span> <span className="code-prop">engineer</span> = &#123;</div>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">name</span>: <span className="code-str">"Kenny Palacin Cristobal"</span>,
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">title</span>: <span className="code-str">"Full Stack & AI Developer"</span>,
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">education</span>: [
                   </div>
-                  <div style={{ paddingLeft: '2.4rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '2.4rem' }}>
                     <span className="code-str">"USIL (Ingeniería de Software)"</span>,
                   </div>
-                  <div style={{ paddingLeft: '2.4rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '2.4rem' }}>
                     <span className="code-str">"TECSUP (Diseño & Desarrollo Soft.)"</span>
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>],</div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>],</div>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">recentRole</span>: &#123;
                   </div>
-                  <div style={{ paddingLeft: '2.4rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '2.4rem' }}>
                     <span className="code-prop">company</span>: <span className="code-str">"QTECH EXPERIENCE"</span>,
                   </div>
-                  <div style={{ paddingLeft: '2.4rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '2.4rem' }}>
                     <span className="code-prop">impact</span>: <span className="code-str">"Real-time AJAX messaging & Ops"</span>
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>&#125;,</div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>&#125;,</div>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">coreStack</span>: [
                   </div>
-                  <div style={{ paddingLeft: '2.4rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '2.4rem' }}>
                     <span className="code-str">"React"</span>, <span className="code-str">"Next.js"</span>, <span className="code-str">"Spring Boot"</span>,
                   </div>
-                  <div style={{ paddingLeft: '2.4rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '2.4rem' }}>
                     <span className="code-str">"Flutter"</span>, <span className="code-str">"Gemini AI"</span>, <span className="code-str">"MySQL"</span>
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>],</div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>],</div>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">englishLevel</span>: <span className="code-str">"B2 Upper-Intermediate"</span>,
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">github</span>: <span className="code-str">"Kenny2006-PE"</span>,
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">linkedin</span>: <span className="code-str">"kenny-palacin"</span>,
                   </div>
-                  <div style={{ paddingLeft: '1.2rem' }}>
+                  <div className="code-line" style={{ paddingLeft: '1.2rem' }}>
                     <span className="code-prop">openToWork</span>: <span className="code-keyword">true</span>
                   </div>
-                  <div>&#125;;</div>
+                  <div className="code-line">&#125;;</div>
                 </div>
 
-                {/* Floating Official Tech Brand Badges */}
+                {/* Floating Official Tech Brand Badges with framer-motion */}
                 <div className="card-tech-badges">
-                  <span className="tech-tag-glow float-badge-1" style={{ borderColor: 'rgba(239, 68, 68, 0.4)', color: '#f87171' }}>
-                    <SiGooglegemini size={14} color="#f87171" /> Gemini 1.5 AI
-                  </span>
-                  <span className="tech-tag-glow float-badge-2" style={{ borderColor: 'rgba(59, 130, 246, 0.4)', color: '#60a5fa' }}>
+                  <motion.span 
+                    className="tech-tag-glow float-badge-1" 
+                    style={{ borderColor: 'rgba(239, 68, 68, 0.4)', color: '#f87171' }}
+                    whileHover={{ scale: 1.12, y: -4, boxShadow: '0 8px 24px rgba(239, 68, 68, 0.45)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+                  >
+                    <RiCpuLine size={14} color="#f87171" /> Gemini 1.5 AI
+                  </motion.span>
+                  <motion.span 
+                    className="tech-tag-glow float-badge-2" 
+                    style={{ borderColor: 'rgba(59, 130, 246, 0.4)', color: '#60a5fa' }}
+                    whileHover={{ scale: 1.12, y: -4, boxShadow: '0 8px 24px rgba(59, 130, 246, 0.45)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+                  >
                     <SiNextdotjs size={14} color="#60a5fa" /> Next.js & React
-                  </span>
-                  <span className="tech-tag-glow float-badge-3" style={{ borderColor: 'rgba(139, 92, 246, 0.4)', color: '#c084fc' }}>
+                  </motion.span>
+                  <motion.span 
+                    className="tech-tag-glow float-badge-3" 
+                    style={{ borderColor: 'rgba(139, 92, 246, 0.4)', color: '#c084fc' }}
+                    whileHover={{ scale: 1.12, y: -4, boxShadow: '0 8px 24px rgba(139, 92, 246, 0.45)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+                  >
                     <SiSpringboot size={14} color="#10b981" /> Spring Boot
-                  </span>
-                  <span className="tech-tag-glow float-badge-4" style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
+                  </motion.span>
+                  <motion.span 
+                    className="tech-tag-glow float-badge-4" 
+                    style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}
+                    whileHover={{ scale: 1.12, y: -4, boxShadow: '0 8px 24px rgba(56, 189, 248, 0.45)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+                  >
                     <SiFlutter size={14} color="#38bdf8" /> Flutter & Dart
-                  </span>
-                  <span className="tech-tag-glow float-badge-5" style={{ borderColor: 'rgba(244, 63, 94, 0.4)', color: '#fb7185' }}>
+                  </motion.span>
+                  <motion.span 
+                    className="tech-tag-glow float-badge-5" 
+                    style={{ borderColor: 'rgba(244, 63, 94, 0.4)', color: '#fb7185' }}
+                    whileHover={{ scale: 1.12, y: -4, boxShadow: '0 8px 24px rgba(244, 63, 94, 0.45)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+                  >
                     <RiVerifiedBadgeLine size={14} color="#fb7185" /> Scrum Certified
-                  </span>
+                  </motion.span>
                 </div>
               </div>
             </TiltCard>

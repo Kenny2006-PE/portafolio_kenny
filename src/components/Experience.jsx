@@ -17,7 +17,7 @@ export default function Experience({ t }) {
             <span>{t.nav.experience}</span>
           </div>
           <h2 className="section-title">
-            <span className="gradient-text">{t.experience.title}</span>
+            {t.experience.title}
           </h2>
           <p className="section-subtitle">
             {t.experience.subtitle}

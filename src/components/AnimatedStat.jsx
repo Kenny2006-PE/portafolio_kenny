@@ -44,7 +44,7 @@ export default function AnimatedStat({ value, label, desc }) {
 
   return (
     <div className="stat-item">
-      <span ref={statRef} className="stat-value gradient-text-purple-blue">
+      <span ref={statRef} className="stat-value">
         {value}
       </span>
       <span className="stat-label">{label}</span>

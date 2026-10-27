@@ -6,12 +6,12 @@ import {
   RiSmartphoneLine, 
   RiDatabase2Line, 
   RiToolsLine, 
-  RiBrainLine, 
   RiGitBranchLine, 
   RiTranslate2, 
   RiSearch2Line,
   RiCodeLine
 } from 'react-icons/ri';
+import { motion } from 'framer-motion';
 import {
   SiHtml5,
   SiCss,
@@ -52,7 +52,7 @@ export default function Skills({ t }) {
       case 'Smartphone': return <RiSmartphoneLine size={19} />;
       case 'Database': return <RiDatabase2Line size={19} />;
       case 'Wrench': return <RiToolsLine size={19} />;
-      case 'Cpu': return <RiBrainLine size={19} />;
+      case 'Cpu': return <RiCpuLine size={19} />;
       case 'Workflow': return <RiGitBranchLine size={19} />;
       case 'Globe': return <RiTranslate2 size={19} />;
       default: return <RiCodeLine size={19} />;
@@ -101,7 +101,7 @@ export default function Skills({ t }) {
             <span>{t.nav.skills}</span>
           </div>
           <h2 className="section-title">
-            <span className="gradient-text">{t.skills.title}</span>
+            {t.skills.title}
           </h2>
           <p className="section-subtitle">
             {t.skills.subtitle}
@@ -145,19 +145,21 @@ export default function Skills({ t }) {
                     const logo = getSkillLogo(skill);
 
                     return (
-                      <span 
+                      <motion.span 
                         key={sIdx} 
                         className="skill-pill"
+                        whileHover={{ scale: 1.08, y: -2 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                         style={isMatched ? {
-                          background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(139, 92, 246, 0.3))',
-                          borderColor: '#ef4444',
+                          background: 'rgba(239, 68, 68, 0.15)',
+                          borderColor: 'var(--accent-red)',
                           fontWeight: 700,
                           transform: 'scale(1.05)'
                         } : {}}
                       >
                         {logo}
                         <span>{skill}</span>
-                      </span>
+                      </motion.span>
                     );
                   })}
                 </div>

@@ -4,9 +4,9 @@ import {
   RiCloseLine, 
   RiFileTextLine, 
   RiMoonClearFill, 
-  RiSunFill, 
-  RiSparklingFill 
+  RiSunFill
 } from 'react-icons/ri';
+import { motion } from 'framer-motion';
 
 export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -32,16 +32,25 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
   return (
     <header className="navbar-header" id="navbar">
       <div className="navbar-container">
-        {/* Brand Logo */}
-        <a href="#inicio" className="brand-logo" onClick={(e) => handleNavClick(e, '#inicio')}>
-          <div className="brand-badge">
-            <RiSparklingFill size={18} />
+        {/* Brand Logo - Authentic Developer Monogram <KP /> */}
+        <motion.a 
+          href="#inicio" 
+          className="brand-logo" 
+          onClick={(e) => handleNavClick(e, '#inicio')}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+        >
+          <div className="brand-badge brand-badge-dev">
+            <span className="brand-code-brackets">&lt;</span>
+            <span className="brand-code-name">KP</span>
+            <span className="brand-code-brackets">/&gt;</span>
           </div>
           <div>
             <span style={{ fontWeight: 800 }}>KENNY</span>{' '}
-            <span className="gradient-text" style={{ fontWeight: 800 }}>PALACIN</span>
+            <span className="brand-name-accent" style={{ fontWeight: 800 }}>PALACIN</span>
           </div>
-        </a>
+        </motion.a>
 
         {/* Desktop Nav Links */}
         <nav>

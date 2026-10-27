@@ -32,7 +32,7 @@ export default function CvModal({ isOpen, onClose, t, lang }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content-card" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content-card magictime puffIn" onClick={(e) => e.stopPropagation()}>
         {/* Header Bar */}
         <div className="modal-header-bar">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
