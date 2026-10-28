@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { 
   RiCloseLine, 
   RiDownload2Line, 
@@ -8,6 +9,8 @@ import {
 import confetti from 'canvas-confetti';
 
 export default function CvModal({ isOpen, onClose, t, lang }) {
+  const modalRef = useRef(null);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -15,6 +18,27 @@ export default function CvModal({ isOpen, onClose, t, lang }) {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+
+      if (modalRef.current) {
+        animate(modalRef.current, {
+          scale: [0.88, 1],
+          opacity: [0, 1],
+          translateY: [20, 0],
+          duration: 420,
+          ease: 'outBack'
+        });
+
+        const actions = modalRef.current.querySelectorAll('.pdf-action-btn, .pdf-close-btn');
+        if (actions.length) {
+          animate(actions, {
+            opacity: [0, 1],
+            translateX: [15, 0],
+            delay: stagger(45, { start: 120 }),
+            duration: 350,
+            ease: 'outExpo'
+          });
+        }
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -40,7 +64,8 @@ export default function CvModal({ isOpen, onClose, t, lang }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div 
-        className="modal-content-card pdf-modal magictime puffIn" 
+        ref={modalRef}
+        className="modal-content-card pdf-modal" 
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

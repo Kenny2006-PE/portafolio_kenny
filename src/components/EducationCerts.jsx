@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { animate, stagger } from 'animejs';
 import { 
   RiGraduationCapLine, 
   RiGraduationCapFill, 
@@ -13,6 +14,73 @@ import {
 import { SiGooglegemini } from 'react-icons/si';
 
 export default function EducationCerts({ t }) {
+  const sectionRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated && sectionRef.current) {
+          setHasAnimated(true);
+
+          // 1. Pop brand badges
+          const badges = sectionRef.current.querySelectorAll('.brand-badge');
+          if (badges.length) {
+            animate(badges, {
+              scale: [0.7, 1.12, 1],
+              rotate: [-8, 8, 0],
+              duration: 600,
+              ease: 'outBack'
+            });
+          }
+
+          // 2. Stagger academic degrees on left
+          const eduItems = sectionRef.current.querySelectorAll('.edu-item');
+          if (eduItems.length) {
+            animate(eduItems, {
+              translateX: [-25, 0],
+              opacity: [0, 1],
+              delay: stagger(100, { start: 100 }),
+              duration: 550,
+              ease: 'outCubic'
+            });
+          }
+
+          // 3. Stagger cert rows on right
+          const certRows = sectionRef.current.querySelectorAll('.cert-row');
+          if (certRows.length) {
+            animate(certRows, {
+              scale: [0.94, 1],
+              translateY: [15, 0],
+              opacity: [0, 1],
+              delay: stagger(60, { start: 150 }),
+              duration: 480,
+              ease: 'outBack'
+            });
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    const el = sectionRef.current;
+    if (el) observer.observe(el);
+    return () => {
+      if (el) observer.unobserve(el);
+    };
+  }, [hasAnimated]);
+
+  const handleCertHover = (e) => {
+    const icon = e.currentTarget.querySelector('svg');
+    if (icon) {
+      animate(icon, {
+        scale: [1, 1.3, 1],
+        rotate: [-10, 10, 0],
+        duration: 380,
+        ease: 'outBack'
+      });
+    }
+  };
   const getCertBadgeColor = (type) => {
     switch (type) {
       case 'Inteligencia Artificial':
@@ -49,7 +117,7 @@ export default function EducationCerts({ t }) {
   };
 
   return (
-    <section className="section-padding" id="educacion">
+    <section className="section-padding" id="educacion" ref={sectionRef}>
       <div className="content-wrapper">
         {/* Section Header */}
         <div className="section-header animate__animated animate__fadeIn">
@@ -131,7 +199,7 @@ export default function EducationCerts({ t }) {
                 const icon = getCertIcon(cert.type);
 
                 return (
-                  <div key={cIdx} className="cert-row">
+                  <div key={cIdx} className="cert-row" onMouseEnter={handleCertHover}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         {icon}

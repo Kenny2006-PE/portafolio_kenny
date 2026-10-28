@@ -30,8 +30,10 @@ import confetti from 'canvas-confetti';
 
 export default function HeroCv({ t, onOpenCv }) {
   const codeLinesRef = useRef(null);
+  const heroContainerRef = useRef(null);
 
   useEffect(() => {
+    // 1. Stagger code lines entrance
     if (codeLinesRef.current) {
       const lines = codeLinesRef.current.querySelectorAll('.code-line');
       animate(lines, {
@@ -41,6 +43,53 @@ export default function HeroCv({ t, onOpenCv }) {
         ease: 'outQuad',
         duration: 500
       });
+    }
+
+    // 2. Stagger contact chips entrance
+    if (heroContainerRef.current) {
+      const chips = heroContainerRef.current.querySelectorAll('.contact-chip');
+      if (chips.length) {
+        animate(chips, {
+          opacity: [0, 1],
+          translateY: [14, 0],
+          delay: stagger(40, { start: 250 }),
+          duration: 500,
+          ease: 'outExpo'
+        });
+      }
+
+      // 3. Floating tech badges entrance + organic floating loop
+      const badges = heroContainerRef.current.querySelectorAll('.tech-tag-glow');
+      if (badges.length) {
+        animate(badges, {
+          opacity: [0, 1],
+          scale: [0.65, 1],
+          translateY: [18, 0],
+          delay: stagger(75, { start: 380 }),
+          duration: 650,
+          ease: 'outBack'
+        });
+
+        // Delicate out-of-phase floating oscillations
+        animate('.float-badge-1', { translateY: [-4, 3], duration: 2800, loop: true, direction: 'alternate', ease: 'easeInOutSine' });
+        animate('.float-badge-2', { translateY: [3, -5], duration: 3300, loop: true, direction: 'alternate', ease: 'easeInOutSine' });
+        animate('.float-badge-3', { translateY: [-5, 4], duration: 3100, loop: true, direction: 'alternate', ease: 'easeInOutSine' });
+        animate('.float-badge-4', { translateY: [4, -4], duration: 3500, loop: true, direction: 'alternate', ease: 'easeInOutSine' });
+        animate('.float-badge-5', { translateY: [-3, 4], duration: 2900, loop: true, direction: 'alternate', ease: 'easeInOutSine' });
+      }
+
+      // 4. Subtle status badge developer command icon micro-pulse
+      const devIcon = heroContainerRef.current.querySelector('.status-dev-icon');
+      if (devIcon) {
+        animate(devIcon, {
+          rotate: [-8, 8, -4, 4, 0],
+          scale: [1, 1.15, 1],
+          duration: 1600,
+          delay: 2000,
+          loop: true,
+          ease: 'easeInOutSine'
+        });
+      }
     }
   }, []);
   const triggerCelebration = () => {
@@ -88,7 +137,7 @@ export default function HeroCv({ t, onOpenCv }) {
   };
 
   return (
-    <section className="hero-cv-section" id="inicio">
+    <section className="hero-cv-section" id="inicio" ref={heroContainerRef}>
       <div className="content-wrapper">
         <div className="hero-grid">
           {/* Left Column: CV Presentation & Intro */}

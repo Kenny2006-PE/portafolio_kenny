@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { 
   RiMailSendLine, 
   RiWhatsappLine, 
@@ -14,10 +15,73 @@ import confetti from 'canvas-confetti';
 
 export default function Contact({ t }) {
   const [copiedId, setCopiedId] = useState(null);
+  const terminalRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-  const handleCopy = (text, id) => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated && terminalRef.current) {
+          setHasAnimated(true);
+
+          // 1. Stagger channel rows
+          const rows = terminalRef.current.querySelectorAll('.cmd-channel-row');
+          if (rows.length) {
+            animate(rows, {
+              translateX: [-25, 0],
+              opacity: [0, 1],
+              delay: stagger(75, { start: 180 }),
+              duration: 550,
+              ease: 'outExpo'
+            });
+          }
+
+          // 2. Cursor pulse
+          const cursor = terminalRef.current.querySelector('.prompt-cursor');
+          if (cursor) {
+            animate(cursor, {
+              opacity: [0, 1],
+              duration: 750,
+              loop: true,
+              direction: 'alternate',
+              ease: 'steps(2)'
+            });
+          }
+
+          // 3. Live status dot breathing loop
+          const liveDot = terminalRef.current.querySelector('.status-live-dot');
+          if (liveDot) {
+            animate(liveDot, {
+              scale: [1, 1.35, 1],
+              opacity: [0.6, 1, 0.6],
+              duration: 1800,
+              loop: true,
+              ease: 'easeInOutSine'
+            });
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    const el = terminalRef.current;
+    if (el) observer.observe(el);
+    return () => {
+      if (el) observer.unobserve(el);
+    };
+  }, [hasAnimated]);
+
+  const handleCopy = (text, id, e) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
+
+    if (e && e.currentTarget) {
+      animate(e.currentTarget, {
+        scale: [1, 1.25, 0.95, 1],
+        duration: 400,
+        ease: 'outElastic(1, .5)'
+      });
+    }
 
     confetti({
       particleCount: 45,
@@ -58,7 +122,7 @@ export default function Contact({ t }) {
 
         {/* Developer CMD Terminal Container */}
         <div className="contact-terminal-wrapper animate__animated animate__fadeInUp">
-          <div className="contact-terminal-card">
+          <div className="contact-terminal-card" ref={terminalRef}>
             {/* Terminal Window Header */}
             <div className="terminal-card-header">
               <div className="terminal-window-controls">
@@ -114,7 +178,7 @@ export default function Contact({ t }) {
                       {/* Copy action for Email and WhatsApp */}
                       {(channel.type === 'email' || channel.type === 'whatsapp') && (
                         <button
-                          onClick={() => handleCopy(channel.user, channel.id)}
+                          onClick={(e) => handleCopy(channel.user, channel.id, e)}
                           className={`cmd-pill-btn copy ${copiedId === channel.id ? 'is-copied' : ''}`}
                           title={t.contact.copyBtn}
                           aria-label={`Copiar ${channel.label}`}
@@ -141,7 +205,7 @@ export default function Contact({ t }) {
               <div className="cmd-terminal-footer-strip">
                 <div 
                   className="footer-strip-item copyable"
-                  onClick={() => handleCopy(t.personal.email, 'footer-email')}
+                  onClick={(e) => handleCopy(t.personal.email, 'footer-email', e)}
                   title="Copiar email"
                 >
                   <RiMailLine size={14} color="var(--accent-red)" />
@@ -153,7 +217,7 @@ export default function Contact({ t }) {
 
                 <div 
                   className="footer-strip-item copyable"
-                  onClick={() => handleCopy(t.personal.phone, 'footer-phone')}
+                  onClick={(e) => handleCopy(t.personal.phone, 'footer-phone', e)}
                   title="Copiar teléfono"
                 >
                   <RiWhatsappLine size={14} color="#10b981" />

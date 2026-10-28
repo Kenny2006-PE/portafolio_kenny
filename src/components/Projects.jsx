@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { 
   RiFolder3Line, 
   RiGithubFill, 
@@ -25,6 +26,7 @@ import TiltCard from './TiltCard';
 
 export default function Projects({ t }) {
   const [activeCategory, setActiveCategory] = useState("Todos");
+  const projectsGridRef = useRef(null);
 
   const categories = [
     { id: "Todos", label: t.projects.categories[0] },
@@ -41,6 +43,45 @@ export default function Projects({ t }) {
         if (activeCategory === "APIs & Backend") return item.techStack.some(tech => tech.includes("Spring") || tech.includes("REST") || tech.includes("Node") || tech.includes("Express"));
         return true;
       });
+
+  useEffect(() => {
+    if (projectsGridRef.current) {
+      const cards = projectsGridRef.current.querySelectorAll('.project-card');
+      if (cards.length) {
+        animate(cards, {
+          opacity: [0, 1],
+          translateY: [20, 0],
+          scale: [0.96, 1],
+          delay: stagger(60),
+          duration: 480,
+          ease: 'outExpo'
+        });
+      }
+
+      const chips = projectsGridRef.current.querySelectorAll('.project-card .tech-chip');
+      if (chips.length) {
+        animate(chips, {
+          opacity: [0, 1],
+          scale: [0.85, 1],
+          delay: stagger(15, { start: 150 }),
+          duration: 350,
+          ease: 'outBack'
+        });
+      }
+    }
+  }, [activeCategory]);
+
+  const handleBtnHover = (e) => {
+    const svg = e.currentTarget.querySelector('svg');
+    if (svg) {
+      animate(svg, {
+        rotate: [-12, 12, -4, 4, 0],
+        scale: [1, 1.25, 1],
+        duration: 400,
+        ease: 'outBack'
+      });
+    }
+  };
 
   const getProjectIcon = (id) => {
     switch (id) {
@@ -107,7 +148,7 @@ export default function Projects({ t }) {
         </div>
 
         {/* Projects Grid with 3D TiltCards & AnimatePresence */}
-        <motion.div layout className="projects-grid">
+        <motion.div layout className="projects-grid" ref={projectsGridRef}>
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
@@ -133,6 +174,7 @@ export default function Projects({ t }) {
                           target="_blank"
                           rel="noreferrer"
                           className="btn-icon"
+                          onMouseEnter={handleBtnHover}
                           title="Ver repositorio en GitHub"
                           aria-label={`Ver repositorio de ${project.title} en GitHub`}
                         >
@@ -143,6 +185,7 @@ export default function Projects({ t }) {
                           target="_blank"
                           rel="noreferrer"
                           className="btn-icon"
+                          onMouseEnter={handleBtnHover}
                           title={project.demo !== '#' ? "Ir al proyecto" : "Ver detalles del proyecto"}
                           aria-label={project.demo !== '#' ? `Ir al proyecto ${project.title}` : `Ver detalles de ${project.title}`}
                         >

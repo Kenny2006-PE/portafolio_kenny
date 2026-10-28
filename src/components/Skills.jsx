@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 import { 
   RiCpuLine,
   RiLayoutMasonryLine, 
@@ -44,6 +45,73 @@ import {
 
 export default function Skills({ t }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const skillsSectionRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated && skillsSectionRef.current) {
+          setHasAnimated(true);
+
+          // 1. Stagger category cards
+          const cards = skillsSectionRef.current.querySelectorAll('.skill-category-card');
+          if (cards.length) {
+            animate(cards, {
+              opacity: [0, 1],
+              translateY: [24, 0],
+              scale: [0.97, 1],
+              delay: stagger(70, { start: 100 }),
+              duration: 550,
+              ease: 'outExpo'
+            });
+          }
+
+          // 2. Cascade skill pills
+          const pills = skillsSectionRef.current.querySelectorAll('.skill-pill');
+          if (pills.length) {
+            animate(pills, {
+              opacity: [0, 1],
+              scale: [0.8, 1],
+              delay: stagger(10, { start: 200 }),
+              duration: 400,
+              ease: 'outBack'
+            });
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    const el = skillsSectionRef.current;
+    if (el) observer.observe(el);
+    return () => {
+      if (el) observer.unobserve(el);
+    };
+  }, [hasAnimated]);
+
+  // Reactive micro-pulse when searching
+  useEffect(() => {
+    if (searchQuery && skillsSectionRef.current) {
+      const matched = skillsSectionRef.current.querySelectorAll('.skill-pill.is-matched');
+      if (matched.length) {
+        animate(matched, {
+          scale: [1, 1.15, 1.05],
+          duration: 320,
+          ease: 'outBack'
+        });
+      }
+    }
+  }, [searchQuery]);
+
+  const handleIconHover = (e) => {
+    animate(e.currentTarget, {
+      rotate: [-8, 8, -4, 4, 0],
+      scale: [1, 1.25, 1],
+      duration: 450,
+      ease: 'outBack'
+    });
+  };
 
   const getCategoryIcon = (iconName) => {
     switch (iconName) {
@@ -92,7 +160,7 @@ export default function Skills({ t }) {
   };
 
   return (
-    <section className="section-padding" id="habilidades">
+    <section className="section-padding" id="habilidades" ref={skillsSectionRef}>
       <div className="content-wrapper">
         {/* Section Header */}
         <div className="section-header animate__animated animate__fadeIn">
@@ -131,9 +199,13 @@ export default function Skills({ t }) {
             if (searchQuery && matchesCategory.length === 0) return null;
 
             return (
-              <div key={idx} className="skill-category-card animate__animated animate__fadeIn">
+              <div key={idx} className="skill-category-card">
                 <div className="skill-card-head">
-                  <div className="skill-icon-badge">
+                  <div 
+                    className="skill-icon-badge" 
+                    onMouseEnter={handleIconHover}
+                    style={{ cursor: 'pointer' }}
+                  >
                     {getCategoryIcon(category.icon)}
                   </div>
                   <h3>{category.name}</h3>
@@ -147,7 +219,7 @@ export default function Skills({ t }) {
                     return (
                       <motion.span 
                         key={sIdx} 
-                        className="skill-pill"
+                        className={`skill-pill ${isMatched ? 'is-matched' : ''}`}
                         whileHover={{ scale: 1.08, y: -2 }}
                         transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                         style={isMatched ? {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { animate } from 'animejs';
 import { 
   RiMenu4Line, 
   RiCloseLine, 
@@ -11,6 +12,44 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleToggleTheme = (e) => {
+    toggleTheme();
+    const thumb = e.currentTarget.querySelector('.theme-toggle-thumb');
+    if (thumb) {
+      animate(thumb, {
+        rotate: [0, 360],
+        scale: [0.75, 1.25, 1],
+        duration: 450,
+        ease: 'outBack'
+      });
+    }
+  };
+
+  const handleLangToggle = (e) => {
+    const nextLang = lang === 'es' ? 'en' : 'es';
+    setLang(nextLang);
+    const slider = e.currentTarget.querySelector('.lang-toggle-slider');
+    if (slider) {
+      animate(slider, {
+        scale: [0.85, 1.18, 1],
+        duration: 350,
+        ease: 'outBack'
+      });
+    }
+  };
+
+  const handleBrandHover = (e) => {
+    const badge = e.currentTarget.querySelector('.brand-badge-dev');
+    if (badge) {
+      animate(badge, {
+        scale: [1, 1.14, 1],
+        rotate: [-6, 6, 0],
+        duration: 400,
+        ease: 'outBack'
+      });
+    }
+  };
 
   const navLinks = [
     { href: '#inicio', label: t.nav.hero },
@@ -38,6 +77,7 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
           href="#inicio" 
           className="brand-logo" 
           onClick={(e) => handleNavClick(e, '#inicio')}
+          onMouseEnter={handleBrandHover}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -76,13 +116,13 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
           <div
             className="lang-toggle-capsule"
             data-lang={lang}
-            onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+            onClick={handleLangToggle}
             title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                setLang(lang === 'es' ? 'en' : 'es');
+                handleLangToggle(e);
               }
             }}
           >
@@ -95,7 +135,7 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
           <button
             className="theme-toggle-ring"
             data-theme={theme}
-            onClick={toggleTheme}
+            onClick={handleToggleTheme}
             aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
             title={theme === 'dark' ? 'Modo Claro' : 'Modo Oscuro'}
           >
