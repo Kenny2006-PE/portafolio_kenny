@@ -4,7 +4,8 @@ import {
   RiCloseLine, 
   RiFileTextLine, 
   RiMoonClearFill, 
-  RiSunFill
+  RiSunFill,
+  RiDownload2Line
 } from 'react-icons/ri';
 import { motion } from 'framer-motion';
 
@@ -162,17 +163,16 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
               {link.label}
             </a>
           ))}
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenCv();
-            }}
+          <a
+            href="/CV_KennyPalacin.pdf"
+            download="CV_KennyPalacin.pdf"
+            onClick={() => setMobileMenuOpen(false)}
             className="btn btn-primary"
-            style={{ marginTop: '0.5rem' }}
+            style={{ marginTop: '0.5rem', textDecoration: 'none' }}
           >
-            <RiFileTextLine size={16} />
-            {t.nav.viewCv}
-          </button>
+            <RiDownload2Line size={17} />
+            <span>{t.nav.downloadCv}</span>
+          </a>
         </div>
       )}
     </header>

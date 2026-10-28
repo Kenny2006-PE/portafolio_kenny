@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RiPrinterLine, RiCloseLine } from 'react-icons/ri';
+import { RiPrinterLine, RiCloseLine, RiDownload2Line } from 'react-icons/ri';
 import confetti from 'canvas-confetti';
 
 export default function CvModal({ isOpen, onClose, t, lang }) {
@@ -42,7 +42,16 @@ export default function CvModal({ isOpen, onClose, t, lang }) {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <button onClick={handlePrint} className="btn btn-primary" style={{ padding: '0.45rem 1rem', fontSize: '0.85rem' }}>
+            <a 
+              href="/CV_KennyPalacin.pdf" 
+              download="CV_KennyPalacin.pdf" 
+              className="btn btn-primary" 
+              style={{ padding: '0.45rem 1rem', fontSize: '0.85rem', textDecoration: 'none' }}
+            >
+              <RiDownload2Line size={17} />
+              <span>{t.nav.downloadCv}</span>
+            </a>
+            <button onClick={handlePrint} className="btn btn-secondary" style={{ padding: '0.45rem 1rem', fontSize: '0.85rem' }}>
               <RiPrinterLine size={17} />
               <span>{t.cvModal.printBtn}</span>
             </button>

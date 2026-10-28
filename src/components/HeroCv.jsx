@@ -85,8 +85,6 @@ export default function HeroCv({ t, onOpenCv }) {
       startVelocity: 45,
       colors: ['#10b981', '#3b82f6']
     });
-
-    onOpenCv();
   };
 
   return (
@@ -161,7 +159,9 @@ export default function HeroCv({ t, onOpenCv }) {
 
             {/* Call to Actions with Sober Executive Buttons & Micro-interactions */}
             <div className="hero-cta-group">
-              <motion.button 
+              <motion.a 
+                href="/CV_KennyPalacin.pdf"
+                download="CV_KennyPalacin.pdf"
                 onClick={triggerCelebration} 
                 className="btn btn-primary"
                 whileHover={{ scale: 1.03, y: -2 }}
@@ -169,9 +169,9 @@ export default function HeroCv({ t, onOpenCv }) {
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
               >
                 <RiDownload2Line size={18} />
-                <span>{t.nav.downloadCv} / {t.nav.viewCv}</span>
+                <span>{t.nav.downloadCv}</span>
                 <RiFileLine size={16} />
-              </motion.button>
+              </motion.a>
               
               <motion.a 
                 href="#proyectos" 
