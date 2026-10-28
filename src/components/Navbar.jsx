@@ -7,7 +7,7 @@ import {
   RiSunFill,
   RiDownload2Line
 } from 'react-icons/ri';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
             <span className="brand-code-name">KP</span>
             <span className="brand-code-brackets">/&gt;</span>
           </div>
-          <div>
+          <div className="brand-text-wrap">
             <span style={{ fontWeight: 800 }}>KENNY</span>{' '}
             <span className="brand-name-accent" style={{ fontWeight: 800 }}>PALACIN</span>
           </div>
@@ -116,10 +116,10 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
             </div>
           </button>
 
-          {/* Quick CV Action Button */}
+          {/* Quick CV Action Button (Desktop & Tablet only, mobile drawer has it) */}
           <button
             onClick={onOpenCv}
-            className="btn btn-primary animate__animated animate__fadeIn"
+            className="btn btn-primary animate__animated animate__fadeIn nav-cv-btn"
             style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem' }}
           >
             <RiFileTextLine size={16} />
@@ -133,48 +133,60 @@ export default function Navbar({ lang, setLang, theme, toggleTheme, onOpenCv, t 
           <button
             className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Abrir menú"
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
             {mobileMenuOpen ? <RiCloseLine size={24} /> : <RiMenu4Line size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div
-          style={{
-            background: 'var(--bg-secondary)',
-            borderBottom: '1px solid var(--border-subtle)',
-            padding: '1.25rem 1.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem'
-          }}
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="nav-link"
-              style={{ fontSize: '1.1rem', padding: '0.5rem 0' }}
-              onClick={(e) => handleNavClick(e, link.href)}
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="/CV_KennyPalacin.pdf"
-            download="CV_KennyPalacin.pdf"
-            onClick={() => setMobileMenuOpen(false)}
-            className="btn btn-primary"
-            style={{ marginTop: '0.5rem', textDecoration: 'none' }}
+      {/* Mobile Drawer with AnimatePresence */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className="mobile-drawer"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
           >
-            <RiDownload2Line size={17} />
-            <span>{t.nav.downloadCv}</span>
-          </a>
-        </div>
-      )}
+            <div className="mobile-drawer-links">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="mobile-nav-link"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                >
+                  <span>{link.label}</span>
+                </a>
+              ))}
+            </div>
+
+            <div className="mobile-drawer-actions">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenCv();
+                }}
+                className="btn btn-secondary mobile-drawer-btn"
+              >
+                <RiFileTextLine size={17} />
+                <span>{t.nav.viewCv}</span>
+              </button>
+              <a
+                href="/CV_KennyPalacin.pdf"
+                download="CV_KennyPalacin.pdf"
+                onClick={() => setMobileMenuOpen(false)}
+                className="btn btn-primary mobile-drawer-btn"
+              >
+                <RiDownload2Line size={17} />
+                <span>{t.nav.downloadCv}</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
