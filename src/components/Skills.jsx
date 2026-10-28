@@ -10,6 +10,7 @@ import {
   RiGitBranchLine, 
   RiTranslate2, 
   RiSearch2Line,
+  RiCloseLine,
   RiCodeLine
 } from 'react-icons/ri';
 import { motion } from 'framer-motion';
@@ -45,8 +46,31 @@ import {
 
 export default function Skills({ t }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef(null);
   const skillsSectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+
+  const quickFilters = ['React', 'Next.js', 'Spring Boot', 'Flutter', 'Gemini AI', 'MySQL'];
+
+  const totalMatches = searchQuery ? t.skills.categories.reduce((acc, cat) => {
+    return acc + cat.skills.filter(s => s.toLowerCase().includes(searchQuery.toLowerCase())).length;
+  }, 0) : 0;
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '/' && document.activeElement !== inputRef.current && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+      if (e.key === 'Escape' && document.activeElement === inputRef.current) {
+        setSearchQuery('');
+        inputRef.current?.blur();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -175,17 +199,64 @@ export default function Skills({ t }) {
             {t.skills.subtitle}
           </p>
 
-          {/* Quick Skill Search Bar for Recruiters */}
-          <div style={{ maxWidth: '420px', margin: '1.5rem auto 0 auto', position: 'relative' }}>
-            <RiSearch2Line size={17} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            <input
-              type="text"
-              placeholder={t.lang === 'en' ? "Search tech (e.g., React, Gemini, Spring)..." : "Buscar tecnología (ej: React, Gemini, Spring)..."}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="form-input"
-              style={{ width: '100%', paddingLeft: '2.6rem', borderRadius: '9999px' }}
-            />
+          {/* Executive Spotlight Search Bar for Recruiters */}
+          <div className="skills-search-wrapper">
+            <div className={`skills-search-box ${isFocused ? 'is-focused' : ''}`}>
+              <div className="skills-search-icon">
+                <RiSearch2Line size={19} />
+              </div>
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder={t.lang === 'en' ? "Search tech stack (e.g. React, Gemini, Spring Boot)..." : "Buscar tecnología (ej: React, Gemini, Spring Boot)..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                className="skills-search-input"
+                aria-label="Buscar habilidades técnicas"
+              />
+              <div className="skills-search-actions">
+                {searchQuery ? (
+                  <>
+                    <span className="skills-search-counter">
+                      {totalMatches} {t.lang === 'en' ? (totalMatches === 1 ? 'match' : 'matches') : (totalMatches === 1 ? 'coincidencia' : 'coincidencias')}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => { setSearchQuery(''); inputRef.current?.focus(); }}
+                      className="skills-search-clear-btn"
+                      title={t.lang === 'en' ? "Clear search" : "Limpiar búsqueda"}
+                      aria-label="Limpiar búsqueda"
+                    >
+                      <RiCloseLine size={18} />
+                    </button>
+                  </>
+                ) : (
+                  <kbd className="skills-search-kbd" title="Presiona / para enfocar">/</kbd>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Popular Technology Filter Suggestions */}
+            <div className="skills-quick-tags">
+              <span className="skills-quick-tag-label">
+                {t.lang === 'en' ? 'Quick filter:' : 'Filtro rápido:'}
+              </span>
+              {quickFilters.map((tech) => {
+                const isActive = searchQuery.toLowerCase() === tech.toLowerCase();
+                return (
+                  <button
+                    key={tech}
+                    type="button"
+                    className={`skills-quick-tag-btn ${isActive ? 'is-active' : ''}`}
+                    onClick={() => setSearchQuery(isActive ? '' : tech)}
+                  >
+                    {tech}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 

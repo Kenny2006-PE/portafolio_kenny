@@ -1511,6 +1511,167 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
+   Skills Spotlight Search Bar
+   ========================================================================== */
+.skills-search-wrapper {
+  max-width: 520px;
+  width: 100%;
+  margin: 1.75rem auto 0 auto;
+}
+
+.skills-search-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 0.65rem 1rem;
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(14px);
+  transition: all var(--transition-normal);
+}
+
+.skills-search-box:hover {
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+.skills-search-box.is-focused {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14), var(--shadow-md);
+  background: var(--bg-secondary);
+}
+
+.skills-search-icon {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  transition: color var(--transition-fast);
+}
+
+.skills-search-box.is-focused .skills-search-icon {
+  color: var(--accent-red);
+}
+
+.skills-search-input {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.skills-search-input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 400;
+}
+
+.skills-search-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.skills-search-clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+}
+
+.skills-search-clear-btn:hover {
+  color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.skills-search-kbd {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  user-select: none;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.skills-search-counter {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.skills-quick-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.skills-quick-tag-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-right: 0.2rem;
+}
+
+.skills-quick-tag-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.22rem 0.65rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.skills-quick-tag-btn:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+  transform: translateY(-1px);
+}
+
+.skills-quick-tag-btn.is-active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  font-weight: 600;
+}
+
+/* ==========================================================================
    Education & Certifications Section
    ========================================================================== */
 .edu-certs-grid {
