@@ -226,10 +226,13 @@ export const portfolioData = {
       ]
     },
     cvModal: {
-      title: "Currículum Vitae - Kenny Palacin Cristobal",
-      printBtn: "Imprimir / Guardar como PDF",
-      closeBtn: "Cerrar Vista Previa",
-      downloadDone: "¡Listo para imprimir o guardar!"
+      title: "Currículum Vitae Oficial",
+      fileName: "CV_KennyPalacin.pdf",
+      badge: "PDF",
+      downloadBtn: "Descargar PDF",
+      openTabBtn: "Abrir pestaña",
+      closeBtn: "Cerrar",
+      fallbackText: "¿Deseas ver el archivo en pantalla completa? También puedes abrirlo o descargarlo directamente."
     }
   },
 
@@ -460,10 +463,13 @@ export const portfolioData = {
       ]
     },
     cvModal: {
-      title: "Curriculum Vitae - Kenny Palacin Cristobal",
-      printBtn: "Print / Save as PDF",
-      closeBtn: "Close Preview",
-      downloadDone: "Ready to print or save as PDF!"
+      title: "Official Curriculum Vitae",
+      fileName: "CV_KennyPalacin.pdf",
+      badge: "PDF",
+      downloadBtn: "Download PDF",
+      openTabBtn: "Open tab",
+      closeBtn: "Close",
+      fallbackText: "Want to see it full screen? You can also open or download it directly."
     }
   }
 };
