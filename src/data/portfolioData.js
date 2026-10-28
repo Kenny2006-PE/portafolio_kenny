@@ -71,8 +71,8 @@ export const portfolioData = {
             "Solución integral multiplataforma (Web y Móvil) orientada a la gestión financiera personal con privacidad de datos. Incorpora un asistente conversacional contextual impulsado por Inteligencia Artificial que analiza balances de cuentas, categoriza transacciones y ofrece recomendaciones personalizadas en tiempo real.",
           techStack: ["Flutter", "Dart", "Next.js", "React", "SQLite", "API de Gemini 1.5 Flash", "Git"],
           metrics: "Análisis financiero contextual en tiempo real con Gemini AI y almacenamiento local seguro.",
-          github: "https://github.com/Kenny2006-PE",
-          demo: "#"
+          github: "https://github.com/Kenny2006-PE/MonIA_Web",
+          demo: "https://monia-web-six.vercel.app/wallet"
         },
         {
           id: "marketmap",
@@ -305,8 +305,8 @@ export const portfolioData = {
             "Comprehensive cross-platform solution (Web & Mobile) tailored for personal finance with data privacy. Features an AI-powered contextual conversational assistant that analyzes account balances, categorizes transactions, and provides real-time personalized recommendations.",
           techStack: ["Flutter", "Dart", "Next.js", "React", "SQLite", "Gemini 1.5 Flash API", "Git"],
           metrics: "Real-time contextual financial insights with Gemini AI and secure local persistence.",
-          github: "https://github.com/Kenny2006-PE",
-          demo: "#"
+          github: "https://github.com/Kenny2006-PE/MonIA_Web",
+          demo: "https://monia-web-six.vercel.app/wallet"
         },
         {
           id: "marketmap",

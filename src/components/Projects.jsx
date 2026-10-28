@@ -134,6 +134,7 @@ export default function Projects({ t }) {
                           rel="noreferrer"
                           className="btn-icon"
                           title="Ver repositorio en GitHub"
+                          aria-label={`Ver repositorio de ${project.title} en GitHub`}
                         >
                           <RiGithubFill size={19} />
                         </a>
@@ -142,7 +143,8 @@ export default function Projects({ t }) {
                           target="_blank"
                           rel="noreferrer"
                           className="btn-icon"
-                          title="Ver detalles del proyecto"
+                          title={project.demo !== '#' ? "Ir al proyecto" : "Ver detalles del proyecto"}
+                          aria-label={project.demo !== '#' ? `Ir al proyecto ${project.title}` : `Ver detalles de ${project.title}`}
                         >
                           <RiArrowRightUpLine size={19} />
                         </a>
