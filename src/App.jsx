@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import HeroCv from './components/HeroCv';
 import Experience from './components/Experience';
@@ -7,11 +7,12 @@ import Skills from './components/Skills';
 import EducationCerts from './components/EducationCerts';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CvModal from './components/CvModal';
 import BackgroundAmbient from './components/BackgroundAmbient';
 import ParticleCanvas from './components/ParticleCanvas';
 import CursorGlow from './components/CursorGlow';
 import { portfolioData } from './data/portfolioData';
+
+const CvModal = lazy(() => import('./components/CvModal'));
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
@@ -82,12 +83,16 @@ export default function App() {
       <Footer t={t} lang={lang} />
 
       {/* Interactive & Printable CV Modal */}
-      <CvModal
-        isOpen={isCvModalOpen}
-        onClose={() => setIsCvModalOpen(false)}
-        t={t}
-        lang={lang}
-      />
+      {isCvModalOpen && (
+        <Suspense fallback={null}>
+          <CvModal
+            isOpen={isCvModalOpen}
+            onClose={() => setIsCvModalOpen(false)}
+            t={t}
+            lang={lang}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

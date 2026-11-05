@@ -232,7 +232,12 @@ export const portfolioData = {
       downloadBtn: "Descargar PDF",
       openTabBtn: "Abrir pestaña",
       closeBtn: "Cerrar",
-      fallbackText: "¿Deseas ver el archivo en pantalla completa? También puedes abrirlo o descargarlo directamente."
+      fallbackText: "¿Deseas ver el archivo en pantalla completa? También puedes abrirlo o descargarlo directamente.",
+      pagesBadge: "Páginas",
+      zoomIn: "Acercar",
+      zoomOut: "Alejar",
+      resetZoom: "Restablecer (100%)",
+      fitWidth: "Ajustar ancho"
     }
   },
 
@@ -469,7 +474,12 @@ export const portfolioData = {
       downloadBtn: "Download PDF",
       openTabBtn: "Open tab",
       closeBtn: "Close",
-      fallbackText: "Want to see it full screen? You can also open or download it directly."
+      fallbackText: "Want to see it full screen? You can also open or download it directly.",
+      pagesBadge: "Pages",
+      zoomIn: "Zoom in",
+      zoomOut: "Zoom out",
+      resetZoom: "Reset (100%)",
+      fitWidth: "Fit width"
     }
   }
 };

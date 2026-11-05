@@ -15,9 +15,7 @@ import {
   RiCpuLine
 } from 'react-icons/ri';
 import { 
-  SiGooglegemini, 
   SiNextdotjs, 
-  SiReact, 
   SiSpringboot, 
   SiFlutter 
 } from 'react-icons/si';
@@ -28,7 +26,7 @@ import AnimatedStat from './AnimatedStat';
 import TiltCard from './TiltCard';
 import confetti from 'canvas-confetti';
 
-export default function HeroCv({ t, onOpenCv }) {
+export default function HeroCv({ t, onOpenCv: _onOpenCv }) {
   const codeLinesRef = useRef(null);
   const heroContainerRef = useRef(null);
 

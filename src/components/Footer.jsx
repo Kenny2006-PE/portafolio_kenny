@@ -3,8 +3,7 @@ import {
   RiGithubFill, 
   RiLinkedinBoxFill, 
   RiMailLine, 
-  RiArrowUpLine, 
-  RiHeartFill 
+  RiArrowUpLine 
 } from 'react-icons/ri';
 
 export default function Footer({ t, lang }) {

@@ -4,12 +4,10 @@ import {
   RiGraduationCapLine, 
   RiGraduationCapFill, 
   RiAwardFill, 
-  RiAwardLine, 
   RiShieldCheckLine, 
   RiTranslate2, 
   RiCodeSSlashLine, 
-  RiPaletteLine,
-  RiVerifiedBadgeFill
+  RiPaletteLine
 } from 'react-icons/ri';
 import { SiGooglegemini } from 'react-icons/si';
 
